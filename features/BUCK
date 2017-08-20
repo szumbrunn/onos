@@ -132,6 +132,35 @@ osgi_feature (
   ]
 )
 
+
+osgi_feature (
+  name = 'onos-sdnwise',
+  title="ONOS SDNWise Controller",
+  required_features = ['onos-api'],
+  included_bundles = [
+    '//lib:netty',
+    '//protocols/sdnwise:protocols-sdnwise-api',
+    '//protocols/sdnwise:protocols-sdnwise-ctl',
+    '//protocols/sdnwise:protocols-sdnwise-driver',
+  ]
+)
+
+
+osgi_feature (
+  name = 'onos-sdnwise-providers',
+  title="ONOS SDNWise Provider",
+  required_features = ['onos-api', 'onos-sdnwise'],
+  included_bundles = [
+    '//lib:netty',
+    '//providers/sdnwise:onos-sdnwise-provider-packet',
+    '//providers/sdnwise:onos-sdnwise-provider-flow',
+    '//providers/sdnwise:onos-sdnwise-provider-sensornoder',
+    '//providers/sdnwise:onos-sdnwise-provider-devicecontrol',
+
+  ]
+)
+
+
 #FIXME
 # osgi_feature (
 #   name = 'onos-security',

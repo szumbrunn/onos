@@ -45,11 +45,12 @@
         <module>lldpcommon</module>
         <module>lldp</module>
         <module>netcfglinks</module>
-        <module>bmv2</module>
+        <!--<module>bmv2</module>-->
         <module>isis</module>
         <module>lisp</module>
         <module>ospf</module>
         <module>link</module>
+        <module>sdnwise</module>
         <!-- Currently does not build
         <module>ietfte</module>
         -->
@@ -80,6 +81,13 @@
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.scr.annotations</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.onosproject</groupId>
+            <artifactId>protocols-sdnwise-api</artifactId>
+	    <version>1.10.3-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
     <build>

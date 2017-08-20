@@ -34,8 +34,15 @@ CORE = UTILS + API + [
     '//protocols/bgp/ctl:onos-protocols-bgp-ctl',
     '//protocols/netconf/api:onos-protocols-netconf-api',
     '//protocols/netconf/ctl:onos-protocols-netconf-ctl',
+
     '//protocols/openflow/api:onos-protocols-openflow-api',
     '//protocols/openflow/ctl:onos-protocols-openflow-ctl',
+
+    '//protocols/sdnwise/api:onos-protocols-sdnwise-api',
+    '//protocols/sdnwise/ctl:onos-protocols-sdnwise-ctl',
+    '//protocols/sdnwise/driver:onos-protocols-sdnwise-driver',
+    '//protocols/sdnwise/protocol:onos-protocols-sdnwise-protocol',
+
     '//protocols/ospf/api:onos-protocols-ospf-api',
     '//protocols/ospf/protocol:onos-protocols-ospf-protocol',
     '//protocols/ospf/ctl:onos-protocols-ospf-ctl',
@@ -61,11 +68,20 @@ CORE = UTILS + API + [
     '//drivers/utilities:onos-drivers-utilities',
 
     '//providers/netconf/device:onos-providers-netconf-device',
+
     '//providers/openflow/device:onos-providers-openflow-device',
     '//providers/openflow/packet:onos-providers-openflow-packet',
     '//providers/openflow/flow:onos-providers-openflow-flow',
     '//providers/openflow/group:onos-providers-openflow-group',
     '//providers/openflow/meter:onos-providers-openflow-meter',
+
+    '//providers/sdnwise/device:onos-providers-sdnwise-device',
+    '//providers/sdnwise/devicecontrol:onos-providers-sdnwise-devicecontrol',
+    '//providers/sdnwise/flow:onos-providers-sdnwise-flow',
+    '//providers/sdnwise/packet:onos-providers-sdnwise-packet',
+    '//providers/sdnwise/sensornode:onos-providers-sdnwise-sensornode',
+
+
     '//providers/ovsdb/device:onos-providers-ovsdb-device',
     '//providers/ovsdb/tunnel:onos-providers-ovsdb-tunnel',
     '//providers/rest/device:onos-providers-rest-device',
@@ -120,6 +136,9 @@ ONOS_PROVIDERS = [
     '//providers/null:onos-providers-null-oar',
     '//providers/openflow/base:onos-providers-openflow-base-oar',
     '//providers/openflow/app:onos-providers-openflow-app-oar',
+
+    '//providers/sdnwise/app:onos-providers-sdnwise-app-oar',
+
     '//providers/rest:onos-providers-rest-oar',
     '//providers/isis:onos-providers-isis-oar',
     '//providers/snmp:onos-providers-snmp-oar',
