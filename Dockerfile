@@ -1,6 +1,6 @@
 # First stage is the build environment
 FROM sgrio/java-oracle:jdk_8 as builder
-MAINTAINER Jonathan Hart <jono@opennetworking.org>
+MAINTAINER Sebastiano Milardo <s.milardo at hotmail it>
 
 # Set the environment variables
 ENV HOME /root
@@ -53,7 +53,8 @@ LABEL org.label-schema.name="ONOS" \
 # 8181 - GUI
 # 8101 - ONOS CLI
 # 9876 - ONOS intra-cluster communication
-EXPOSE 6653 6640 8181 8101 9876
+# 9999 - SDN-WISE
+EXPOSE 6653 6640 8181 8101 9876 9999
 
 # Get ready to run command
 ENTRYPOINT ["./bin/onos-service"]
