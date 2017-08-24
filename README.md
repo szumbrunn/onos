@@ -14,5 +14,5 @@ This repository contains a fork of ONOS enriched with the software modules neede
 
 * To emulate an heterogeneous networks using SDN-WISE, ONOS, and Mininet please check this [tutorial](http://sdn-wise.dieei.unict.it/docs/guides/
 GetStartedONOS.html).
-* To try SDN-WISE on real devices download sdn-wise-contiki from [here](https://github.com/sdnwiselab/sdn-wise-contiki) and compile the project inside the `sdn-wise` folder by executing the `RUNME.sh` script 
+* To try SDN-WISE on real devices download sdn-wise-contiki from [here](https://github.com/sdnwiselab/sdn-wise-contiki) and check the README for details on how to build SDN-WISE and Contiki.
 
