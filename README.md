@@ -14,7 +14,7 @@ This feature is particularly useful in WSNs, since an SDN-WISE node can create r
 [ONOS](http://www.onosproject.org) is a new SDN network operating system designed for high availability,
 performance, and scale-out.
 
-This repository contains a fork of ONOS, which we call ONOS-IoT, enriched with the software modules needed to interact with SDN-WISE networks and provide functionality for unified control of networks of sensors and switches. This is achieved by introducing new and by extending already existing ONOS components.
+This repository contains a fork of ONOS, enriched with the software modules needed to interact with SDN-WISE networks and provide functionality for unified control of networks of sensors and switches. This is achieved by introducing new and by extending already existing ONOS components.
 More specifically, apart from the original ONOS ones, ONOS-IoT includes the following subsystems:
 * [SensorNode Subsystem.](https://github.com/sdnwiselab/onos/tree/onos-sdn-wise-1.10/core/api/src/main/java/org/onosproject/net/sensor)
 This subsystem introduces extensible APIs that enable the management of sensor nodes, whereas it also provides information about the nodes of the network, such as their battery level, their neighborhood, etc.
@@ -23,10 +23,10 @@ This subsystem builds on top of existing ONOS FlowRule subsystem, however it als
 * [SensorPacket Subsystem.](https://github.com/sdnwiselab/onos/tree/onos-sdn-wise-1.10/core/api/src/main/java/org/onosproject/net/sensorpacket)
 This subsystem also builds on top of existing ONOS components for its Packet Subsystem, however, it generalizes the notion of a packet, so that it is restricted to packets used only in infrastructured networks.
 
-Apart from the aforementioned subsystems, ONOS-IoT also introduces an implementation of the [server part of the SDN-WISE protocol](https://github.com/sdnwiselab/onos/tree/onos-sdn-wise-1.10/protocols/sdnwise), which enables the communication with SDN-WISE nodes.
+Apart from the aforementioned subsystems, we also introduces an implementation of the [server part of the SDN-WISE protocol](https://github.com/sdnwiselab/onos/tree/onos-sdn-wise-1.10/protocols/sdnwise), which enables the communication with SDN-WISE nodes.
 By leveraging this protocol, the SensorPacket and the SensorNode subsystems are able to build a unified view of OpenFlow and SDN-WISE networks, thereby providing a holistic view of an IoT infrastructure.
 All individual components of this infrastructure are either managed by existing subsystems, in case they are hosts connected to OpenFlow switches, or by the SensorNode subsystem, in case they are sensor nodes.
-The prototype network applications that have been developed as a proof concept for ONOS-IoT can be found [here](https://github.com/sdnwiselab/onos-sdn-wise-app-samples).
+The prototype network applications that have been developed as a proof concept for our solution can be found [here](https://github.com/sdnwiselab/onos-sdn-wise-app-samples).
 These applications include:
 * An [integrated packet forwarding application](https://github.com/sdnwiselab/onos-sdn-wise-app-samples/tree/master/mapreduce), which considers both OpenFlow and SDN-WISE network segments in order to do optimal packet forwarding. This application has been evaluated under a MapReduce scenario.
 * A [geographic forwarding application](https://github.com/sdnwiselab/onos-sdn-wise-app-samples/tree/master/geofwd), which chooses the next hop of a sensor node using the Euclidean distance.
@@ -34,6 +34,6 @@ These applications include:
 
 Note that the last two network applications are still in development stage.
 
-To use ONOS-IoT, please also refer to the following sources:
+To use SDN-WISE & ONOS, please also refer to the following sources:
 * To emulate an heterogeneous networks using SDN-WISE, ONOS, and Mininet please check this [tutorial](http://sdn-wise.dieei.unict.it/docs/guides/GetStartedONOS.html).
 * To try SDN-WISE on real devices download `sdn-wise-contiki` from [here](https://github.com/sdnwiselab/sdn-wise-contiki) and check the README for details on how to build SDN-WISE and Contiki.
