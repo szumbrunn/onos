@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.onosproject</groupId>
         <artifactId>onos-sdnwise</artifactId>
-        <version>1.10.3-SNAPSHOT</version>
+        <version>1.10.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>protocols-sdnwise-ctl</artifactId>
@@ -37,22 +37,17 @@
         <dependency>
             <groupId>org.onosproject</groupId>
             <artifactId>protocols-sdnwise-api</artifactId>
-            <version>1.10.3-SNAPSHOT</version>
+            <version>1.10.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.onosproject</groupId>
             <artifactId>protocols-sdnwise-protocol</artifactId>
-            <version>1.10.3-SNAPSHOT</version>
+            <version>1.10.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.onosproject</groupId>
             <artifactId>protocols-sdnwise-driver</artifactId>
-            <version>1.10.3-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onosproject</groupId>
-            <artifactId>protocols-sdnwise-protocol</artifactId>
-            <version>1.10.3-SNAPSHOT</version>
+            <version>1.10.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
