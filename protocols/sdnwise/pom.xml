@@ -22,12 +22,12 @@
     <parent>
         <groupId>org.onosproject</groupId>
         <artifactId>onos-protocols</artifactId>
-        <version>1.10.5-SNAPSHOT</version>
+        <version>1.10.7-SNAPSHOT</version>
     </parent>
 
     <artifactId>onos-sdnwise</artifactId>
     <packaging>pom</packaging>
-    <version>1.10.5-SNAPSHOT</version>
+    <version>1.10.7-SNAPSHOT</version>
 
     <description>ONOS SDN-WISE Protocol subsystem</description>
 
