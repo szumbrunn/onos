@@ -12,7 +12,7 @@ apt-get autoremove -y
 # Update to Java 8 and install Ant and Maven
 add-apt-repository ppa:openjdk-r/ppa -y
 apt-get update
-apt-get install net-tools openjdk-8-jdk ant maven openvswitch-switch -y
+apt-get install net-tools openjdk-8-jdk ant maven git curl openvswitch-switch -y
 update-java-alternatives -s java-1.8.0-openjdk-i386
 
 # Setup environment variables
