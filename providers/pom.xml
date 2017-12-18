@@ -85,7 +85,7 @@
         <dependency>
             <groupId>org.onosproject</groupId>
             <artifactId>protocols-sdnwise-api</artifactId>
-	        <version>1.10.7-SNAPSHOT</version>
+	        <version>1.10.11-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
