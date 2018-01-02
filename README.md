@@ -37,3 +37,17 @@ Note that the last two network applications are still in development stage.
 To use SDN-WISE & ONOS, please also refer to the following sources:
 * To emulate an heterogeneous networks using SDN-WISE, ONOS, and Mininet please check this [tutorial](http://sdn-wise.dieei.unict.it/docs/guides/GetStartedONOS.html).
 * To try SDN-WISE on real devices download `sdn-wise-contiki` from [here](https://github.com/sdnwiselab/sdn-wise-contiki) and check the README for details on how to build SDN-WISE and Contiki.
+
+## Papers
+
+Our approach is detailed in:
+```
+@inproceedings{Anadiotis:2015,
+  author    = {{Angelos-Christos G.} Anadiotis and Laura Galluccio and Sebastiano Milardo and Giacomo Morabito and Sergio Palazzo},
+  booktitle = {2015 IEEE 2nd World Forum on Internet of Things (WF-IoT)},
+  doi       = {10.1109/WF-IoT.2015.7389118},
+  title     = {{Towards a software-defined Network Operating System for the IoT}},
+  year      = {2015},
+  url       = {http://ieeexplore.ieee.org/document/7389118/},
+}
+```
