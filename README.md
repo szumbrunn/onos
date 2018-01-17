@@ -1,6 +1,8 @@
 SDN-WISE & ONOS
 ====================================
 
+[![Analytics](https://ga-beacon.appspot.com/UA-112624043-3/onos/readme)](https://github.com/sdnwiselab/onos)
+
 ### What is SDN-WISE?
 [SDN-WISE](http://sdn-wise.dieei.unict.it) is a Software Defined Networking solution for WIreless SEnsor Networks.
 SDN-WISE simplifies wireless sensor network management by specifying a software-defined networking protocol for wireless sensor nodes.
