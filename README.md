@@ -44,7 +44,7 @@ To use SDN-WISE & ONOS, please also refer to the following sources:
 
 Our approach is detailed in:
 ```
-@ARTICLE{8289363,
+@ARTICLE{Anadiotis:2018,
   author    = {{Angelos-Christos G.} Anadiotis and Sebastiano Milardo and Giacomo Morabito and Sergio Palazzo},
   journal   = {IEEE Internet of Things Journal},
   doi       = {10.1109/JIOT.2018.2805191},
