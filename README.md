@@ -44,6 +44,17 @@ To use SDN-WISE & ONOS, please also refer to the following sources:
 
 Our approach is detailed in:
 ```
+@ARTICLE{8289363,
+  author    = {{Angelos-Christos G.} Anadiotis and Sebastiano Milardo and Giacomo Morabito and Sergio Palazzo},
+  journal   = {IEEE Internet of Things Journal},
+  doi       = {10.1109/JIOT.2018.2805191},
+  title     = {Towards Unified Control of Networks of Switches and Sensors through a Network Operating System},
+  year      = {2018},
+  url       = {http://ieeexplore.ieee.org/document/8289363/}
+}
+```
+
+```
 @inproceedings{Anadiotis:2015,
   author    = {{Angelos-Christos G.} Anadiotis and Laura Galluccio and Sebastiano Milardo and Giacomo Morabito and Sergio Palazzo},
   booktitle = {2015 IEEE 2nd World Forum on Internet of Things (WF-IoT)},
