@@ -85,13 +85,10 @@ public class SDNWiseMessage {
             ReportPacket reportPacket = new ReportPacket(networkPacket);
             sdnWiseMessage = new SDNWiseReportMessage(reportPacket.getDistance(),reportPacket.getBattery(),
                     reportPacket.getNeigborsSize(),
-                    reportPacket.getTemperatureAsDouble(),
-                    reportPacket.getHumidityAsDouble(),
-                    reportPacket.getLight1AsDouble(),
-                    reportPacket.getLight2AsDouble(),
+                    0,0,0,0,
                     ipAddress, port);
 
-            HashMap<NodeAddress, byte[]> neighborsMap = reportPacket.getNeighbors();
+/*            HashMap<NodeAddress, byte[]> neighborsMap = reportPacket.getNeighbors();
             if ((neighborsMap != null) && (neighborsMap.size() > 0)) {
                 for (Map.Entry<NodeAddress, byte[]> entry : neighborsMap.entrySet()) {
                     NodeAddress nodeAddress = entry.getKey();
@@ -108,7 +105,7 @@ public class SDNWiseMessage {
                             new SDNWiseNodeId(networkPacket.getNet(), nodeAddress.getArray()),
                             (txCount & 0xFF));
                 }
-            }
+            }*/
         } else {
             return getMessageFromPacket(networkPacket);
         }
