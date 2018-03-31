@@ -225,6 +225,9 @@
     },
     "plexus-utils": "mvn:org.codehaus.plexus:plexus-utils:3.0.24",
     "sshd-core": "mvn:org.apache.sshd:sshd-core:1.4.0",
-    "sdnwise": "mvn:com.github.sdnwiselab:sdn-wise-core:4.0.1-SNAPSHOT"
+    "sdnwise": {
+      "uri" : "mvn:com.github.sdnwiselab:sdn-wise-core:4.0.1-SNAPSHOT",
+      "repo" : "http://onos.scitab.org:8081/artifactory/list/ext-snapshot-local/"
+    }
   }
 }
