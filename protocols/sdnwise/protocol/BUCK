@@ -13,3 +13,10 @@ osgi_jar_with_tests (
     test_deps = TEST_DEPS,
 )
 
+remote_jar (
+  name = 'sdnwise',
+  out = 'sdn-wise-core-4.0.1-SNAPSHOT.jar',
+  url = 'mvn:com.github.sdnwiselab:sdn-wise-core:4.0.1-SNAPSHOT',
+  maven_coords = 'com.github.sdnwiselab:sdn-wise-core:4.0.1-SNAPSHOT',
+  visibility = [ 'PUBLIC' ],
+)

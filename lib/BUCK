@@ -1271,10 +1271,3 @@ remote_jar (
 )
 
 
-prebuilt_jar (
-    name = 'sdnwise',
-    binary_jar = 'imports/sdn-wise-core-4.0.1-SNAPSHOT.jar',
-    maven_coords = 'com.github.sdnwiselab:sdn-wise-core:4.0.1-SNAPSHOT',
-    visibility = [ 'PUBLIC' ],
-)
-
