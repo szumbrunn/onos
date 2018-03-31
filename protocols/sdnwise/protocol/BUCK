@@ -12,3 +12,10 @@ osgi_jar_with_tests (
     deps = COMPILE_DEPS,
     test_deps = TEST_DEPS,
 )
+
+prebuilt_jar (
+    name = 'sdnwise',
+    binary_jar = 'main/resources/sdn-wise-core-4.0.1-SNAPSHOT-bundle.jar',
+    maven_coords = 'com.github.sdnwiselab:sdn-wise-core:4.0.1-SNAPSHOT',
+    visibility = [ 'PUBLIC' ],
+)
