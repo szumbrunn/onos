@@ -227,7 +227,7 @@
     "sshd-core": "mvn:org.apache.sshd:sshd-core:1.4.0",
     "sdnwise": {
       "uri" : "mvn:com.github.sdnwiselab:sdn-wise-core:4.0.1-SNAPSHOT",
-      "repo" : "http://onos.scitab.org:8081/artifactory/list/ext-snapshot-local/"
+      "repo" : "http://onos.scitab.org:8081/artifactory/ext-snapshot-local"
     }
   }
 }
