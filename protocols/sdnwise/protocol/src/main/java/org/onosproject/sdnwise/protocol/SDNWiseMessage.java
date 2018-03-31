@@ -94,6 +94,7 @@ public class SDNWiseMessage {
             log.info("Humidity: {}%", reportPacket.getHumidityAsDouble());
             log.info("Light1: {}", reportPacket.getLight1AsDouble());
             log.info("Light2: {}", reportPacket.getLight2AsDouble());
+            log.info("#Neighbors: {}", reportPacket.getNeigborsSize());
 
             HashMap<NodeAddress, byte[]> neighborsMap = reportPacket.getNeighbors();
             if ((neighborsMap != null) && (neighborsMap.size() > 0)) {
