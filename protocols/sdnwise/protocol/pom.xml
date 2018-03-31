@@ -48,14 +48,7 @@
             <groupId>com.github.sdnwiselab</groupId>
             <artifactId>sdn-wise-core</artifactId>
             <version>4.0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/sdn-wise-core-4.0.1-SNAPSHOT.jar</systemPath>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.github.sdnwiselab</groupId>-->
-            <!--<artifactId>sdn-wise-core</artifactId>-->
-            <!--<version>4.0.0</version>-->
-        <!--</dependency>-->
         <!--<dependency>-->
         <!--<groupId>org.onosproject</groupId>-->
         <!--<artifactId>onos-sdnwise-api</artifactId>-->
