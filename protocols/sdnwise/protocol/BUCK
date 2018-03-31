@@ -1,6 +1,6 @@
 COMPILE_DEPS = [
     '//lib:CORE_DEPS',
-    '//lib:sdnwise',
+    ':sdnwise',
 ]
 
 TEST_DEPS = [
