@@ -1279,3 +1279,8 @@ remote_jar (
   visibility = [ 'PUBLIC' ],
 )
 
+prebuilt_jar(
+  name = 'sdnwise',
+  binary_jar = 'sdn-wise-core-5.0.0.jar',
+  maven_coords = 'com.github.sdnwiselab:sdn-wise-core:jar:NON-OSGI:5.0.0',
+)
