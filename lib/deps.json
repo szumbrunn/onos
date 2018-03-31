@@ -224,8 +224,6 @@
       "repo": "https://oss.sonatype.org/content/repositories/snapshots"
     },
     "plexus-utils": "mvn:org.codehaus.plexus:plexus-utils:3.0.24",
-    "sshd-core": "mvn:org.apache.sshd:sshd-core:1.4.0",
-    "sdnwise": "../protocols/sdnwise/protocol/src/main/resources/sdn-wise-core-4.0.1-SNAPSHOT.jar"
-    //TODO add link to local file ../protocols/sdnwise/protocol/src/main/resources/sdn-wise-core-4.0.1-SNAPSHOT.jar
+    "sshd-core": "mvn:org.apache.sshd:sshd-core:1.4.0"
   }
 }
