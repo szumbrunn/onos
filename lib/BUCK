@@ -1275,7 +1275,7 @@ remote_jar (
   out = 'sdn-wise-core-4.0.1-20180331.204759-1.jar',
   url = 'http://onos.scitab.org:8081/artifactory/libs-snapshot-local/com/github/sdnwiselab/sdn-wise-core/4.0.1-SNAPSHOT/sdn-wise-core-4.0.1-20180331.204759-1.jar',
   sha1 = 'b24c52c1f2799f494d1a580ebb1074eb5aa7778b',
-  maven_coords = 'com.github.sdnwiselab:sdn-wise-core:4.0.1-SNAPSHOT',
+  maven_coords = 'com.github.sdnwiselab:sdn-wise-core:NON-OSGI:4.0.1-SNAPSHOT',
   visibility = [ 'PUBLIC' ],
 )
 
