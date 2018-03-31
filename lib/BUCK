@@ -1275,6 +1275,7 @@ remote_jar (
   name = 'sdnwise',
   out = 'sdn-wise-core-4.0.1-SNAPSHOT.jar',
   url = 'mvn:com.github.sdnwiselab:sdn-wise-core:4.0.1-SNAPSHOT',
+  sha1 = 'ec2c55cf191c1a9064b64c1812754bc99edaa129',
   maven_coords = 'com.github.sdnwiselab:sdn-wise-core:4.0.1-SNAPSHOT',
   visibility = [ 'PUBLIC' ],
 )
