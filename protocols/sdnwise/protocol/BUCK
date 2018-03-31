@@ -1,3 +1,10 @@
+prebuilt_jar (
+    name = 'sdnwise',
+    binary_jar = 'main/resources/sdn-wise-core-4.0.1-SNAPSHOT-bundle.jar',
+    maven_coords = 'com.github.sdnwiselab:sdn-wise-core:4.0.1-SNAPSHOT',
+    visibility = [ 'PUBLIC' ],
+)
+
 COMPILE_DEPS = [
     '//lib:CORE_DEPS',
     '//lib:sdnwise',
@@ -13,9 +20,3 @@ osgi_jar_with_tests (
     test_deps = TEST_DEPS,
 )
 
-prebuilt_jar (
-    name = 'sdnwise',
-    binary_jar = 'main/resources/sdn-wise-core-4.0.1-SNAPSHOT-bundle.jar',
-    maven_coords = 'com.github.sdnwiselab:sdn-wise-core:4.0.1-SNAPSHOT',
-    visibility = [ 'PUBLIC' ],
-)
