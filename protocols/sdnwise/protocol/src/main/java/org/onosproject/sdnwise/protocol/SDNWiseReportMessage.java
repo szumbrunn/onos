@@ -17,12 +17,25 @@ public class SDNWiseReportMessage extends SDNWiseMessage {
     private IpAddress sinkIpAddress;
     private PortNumber sinkPortNumber;
 
+    /**
+     * Added by Jakob
+     */
+    private double temperature;
+    private double humidity;
+    private double light1;
+    private double light2;
+    private Map<SDNWiseNodeId, Integer> neighborRxCount;
+    private Map<SDNWiseNodeId, Integer> neighborTxCount;
+
     public SDNWiseReportMessage() {
         super();
         this.neighborRSSI = new HashMap<>();
+        this.neighborRxCount = new HashMap<>();
+        this.neighborTxCount = new HashMap<>();
     }
 
     public SDNWiseReportMessage(int distance, int batteryLevel, int nofNeighbors,
+                                double temperature, double humidity, double light1, double light2,
                                 IpAddress sinkIpAddress, PortNumber sinkPortNumber) {
         super();
         this.distance = distance;
@@ -31,15 +44,86 @@ public class SDNWiseReportMessage extends SDNWiseMessage {
         this.neighborRSSI = new HashMap<>();
         this.sinkIpAddress = sinkIpAddress;
         this.sinkPortNumber = sinkPortNumber;
+
+        /**
+         * Added by Jakob
+         */
+        this.neighborRxCount = new HashMap<>();
+        this.neighborTxCount = new HashMap<>();
+        this.temperature = temperature;
+        this.humidity = humidity;
+        this.light1 = light1;
+        this.light2 = light2;
     }
 
     public SDNWiseReportMessage(int distance, int batteryLevel, int nofNeighbors,
-                                Map<SDNWiseNodeId, Integer> neighborRSSI) {
+                                double temperature, double humidity, double light1, double light2,
+                                Map<SDNWiseNodeId, Integer> neighborRSSI,
+                                Map<SDNWiseNodeId, Integer> neighborRxCount, Map<SDNWiseNodeId, Integer> neighborTxCount) {
         super();
         this.distance = distance;
         this.batteryLevel = batteryLevel;
         this.nofNeighbors = nofNeighbors;
         this.neighborRSSI = neighborRSSI;
+
+        /**
+         * Added by Jakob
+         */
+        this.neighborRxCount = neighborRxCount;
+        this.neighborTxCount = neighborTxCount;
+        this.temperature = temperature;
+        this.humidity = humidity;
+        this.light1 = light1;
+        this.light2 = light2;
+
+    }
+
+    public double getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
+    }
+
+    public double getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(double humidity) {
+        this.humidity = humidity;
+    }
+
+    public double getLight1() {
+        return light1;
+    }
+
+    public void setLight1(double light1) {
+        this.light1 = light1;
+    }
+
+    public double getLight2() {
+        return light2;
+    }
+
+    public void setLight2(double light2) {
+        this.light2 = light2;
+    }
+
+    public Map<SDNWiseNodeId, Integer> getNeighborRxCount() {
+        return neighborRxCount;
+    }
+
+    public void setNeighborRxCount(Map<SDNWiseNodeId, Integer> neighborRxCount) {
+        this.neighborRxCount = neighborRxCount;
+    }
+
+    public Map<SDNWiseNodeId, Integer> getNeighborTxCount() {
+        return neighborTxCount;
+    }
+
+    public void setNeighborTxCount(Map<SDNWiseNodeId, Integer> neighborTxCount) {
+        this.neighborTxCount = neighborTxCount;
     }
 
     public int getDistance() {
@@ -77,6 +161,10 @@ public class SDNWiseReportMessage extends SDNWiseMessage {
     public void addNeighborRSSI(SDNWiseNodeId neighbor, int rssi) {
         this.neighborRSSI.put(neighbor, rssi);
     }
+
+    public void addNeighborRxCount(SDNWiseNodeId neighbor, int rxCount) { this.neighborTxCount.put(neighbor, rxCount); };
+
+    public void addNeighborTxCount(SDNWiseNodeId neighbor, int txCount) { this.neighborTxCount.put(neighbor, txCount); };
 
     public Integer getNeighborRSSI(SDNWiseNodeId neighbor) {
         return this.neighborRSSI.get(neighbor);

@@ -83,16 +83,30 @@ public class SDNWiseMessage {
             sdnWiseMessage = new SDNWiseDPConnectionMessage(networkPacket, ipAddress, port);
         } else if (sensorMessageType == REPORT) {
             ReportPacket reportPacket = new ReportPacket(networkPacket);
-            sdnWiseMessage = new SDNWiseReportMessage(reportPacket.getDistance(), reportPacket.getBattery(),
-                    reportPacket.getNeigborsSize(), ipAddress, port);
-            HashMap<NodeAddress, Byte> neighborsMap = reportPacket.getNeighbors();
+            sdnWiseMessage = new SDNWiseReportMessage(reportPacket.getDistance(),reportPacket.getBattery(),
+                    reportPacket.getNeigborsSize(),
+                    reportPacket.getTemperatureAsDouble(),
+                    reportPacket.getHumidityAsDouble(),
+                    reportPacket.getLight1AsDouble(),
+                    reportPacket.getLight2AsDouble(),
+                    ipAddress, port);
+
+            HashMap<NodeAddress, byte[]> neighborsMap = reportPacket.getNeighbors();
             if ((neighborsMap != null) && (neighborsMap.size() > 0)) {
-                for (Map.Entry<NodeAddress, Byte> entry : neighborsMap.entrySet()) {
+                for (Map.Entry<NodeAddress, byte[]> entry : neighborsMap.entrySet()) {
                     NodeAddress nodeAddress = entry.getKey();
-                    byte rssi = entry.getValue();
+                    byte rssi = entry.getValue()[0];
+                    byte rxCount = entry.getValue()[1];
+                    byte txCount = entry.getValue()[2];
                     ((SDNWiseReportMessage) sdnWiseMessage).addNeighborRSSI(
                             new SDNWiseNodeId(networkPacket.getNet(), nodeAddress.getArray()),
                             (rssi & 0xFF));
+                    ((SDNWiseReportMessage) sdnWiseMessage).addNeighborRxCount(
+                            new SDNWiseNodeId(networkPacket.getNet(), nodeAddress.getArray()),
+                            (rxCount & 0xFF));
+                    ((SDNWiseReportMessage) sdnWiseMessage).addNeighborTxCount(
+                            new SDNWiseNodeId(networkPacket.getNet(), nodeAddress.getArray()),
+                            (txCount & 0xFF));
                 }
             }
         } else {

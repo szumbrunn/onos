@@ -357,7 +357,7 @@ public class SDNWisePacketProvider extends AbstractProvider
                 ethernet.setSourceMACAddress(incomingNodeId.generateMacAddress());
                 SDNWiseReportMessage reportMessage = (SDNWiseReportMessage) message;
 
-//                LOG.info("Received REPORT message from node {}", Arrays.toString(message.getSource().address()));
+                LOG.info("Received REPORT message from node {}", Arrays.toString(message.getSource().address()));
                 Map<SDNWiseNodeId, Integer> rssis = reportMessage.getNeighborRSSI();
                 if ((rssis != null) && (rssis.size() > 0)) {
                     for (Map.Entry<SDNWiseNodeId, Integer> rssiEntry : rssis.entrySet()) {
