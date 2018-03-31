@@ -1270,17 +1270,9 @@ remote_jar (
   visibility = [ 'PUBLIC' ],
 )
 
-remote_jar (
-  name = 'sdnwise',
-  out = 'sdn-wise-core-5.0.0.jar',
-  url = 'mvn:http://onos.scitab.org:8081/artifactory/libs-release-local:com.github.sdnwiselab:sdn-wise-core:jar:5.0.0',
-  sha1 = '77cc2a489a1a36ed97840bdcb918d9706f0aa17b',
-  maven_coords = 'com.github.sdnwiselab:sdn-wise-core:jar:NON-OSGI:5.0.0',
-  visibility = [ 'PUBLIC' ],
-)
-
 prebuilt_jar(
   name = 'sdnwise',
   binary_jar = 'sdn-wise-core-5.0.0.jar',
   maven_coords = 'com.github.sdnwiselab:sdn-wise-core:jar:NON-OSGI:5.0.0',
+  visibility = [ 'PUBLIC' ],
 )
