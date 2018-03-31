@@ -1270,11 +1270,11 @@ remote_jar (
   visibility = [ 'PUBLIC' ],
 )
 
-remote_file (
+
+prebuilt_jar (
   name = 'sdnwise',
-  out = 'download',
-  url = 'https://cloud.abilium.com/index.php/s/1gSQj5BNZYFKwXM/download',
-  sha1 = '69348cfcea13dcece0107f239b49769070e86efb',
+  binary_jar = '../protocols/sdnwise/protocol/src/main/resources/sdn-wise-core-4.0.1-SNAPSHOT.jar',
+  maven_coords = 'com.github.sdnwiselab:sdn-wise-core:4.0.1-SNAPSHOT',
   visibility = [ 'PUBLIC' ],
 )
 
