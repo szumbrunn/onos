@@ -5,6 +5,10 @@ public class SensorNodeNeighbor {
     private int rxCount;
     private int txCount;
 
+    public SensorNodeNeighbor() {
+        
+    }
+
     public SensorNodeNeighbor(int rssi, int rxCount, int txCount) {
         this.rssi = rssi;
         this.rxCount = rxCount;
