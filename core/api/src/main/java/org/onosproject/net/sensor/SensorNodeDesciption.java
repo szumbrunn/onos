@@ -31,4 +31,9 @@ public interface SensorNodeDesciption extends Description {
     SensorNodeNeighborhood neighbors();
 
     Float batteryLevel();
+
+    double getTemperature();
+    double getHumidity();
+    double getLight1();
+    double getLight2();
 }

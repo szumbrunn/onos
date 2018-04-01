@@ -30,6 +30,10 @@ public interface SensorNodeService {
     List<SensorNode> getSinks();
 
     Float getSensorNodeBatteryLevel(SensorNodeId sensorNodeId);
+    double getSensorNodeTemperature(SensorNodeId sensorNodeId);
+    double getSensorNodeHumidity(SensorNodeId sensorNodeId);
+    double getSensorNodeLight1(SensorNodeId sensorNodeId);
+    double getSensorNodeLight2(SensorNodeId sensorNodeId);
 
     void addListener(SensorNodeListener listener);
 

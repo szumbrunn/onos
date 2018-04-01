@@ -121,6 +121,26 @@ public class SensorNodeManager
     }
 
     @Override
+    public double getSensorNodeTemperature(SensorNodeId sensorNodeId) {
+        return sensorNodeStore.getSensorNodeTemperature(sensorNodeId);
+    }
+
+    @Override
+    public double getSensorNodeHumidity(SensorNodeId sensorNodeId) {
+        return sensorNodeStore.getSensorNodeHumidity(sensorNodeId);
+    }
+
+    @Override
+    public double getSensorNodeLight1(SensorNodeId sensorNodeId) {
+        return sensorNodeStore.getSensorNodeLight1(sensorNodeId);
+    }
+
+    @Override
+    public double getSensorNodeLight2(SensorNodeId sensorNodeId) {
+        return sensorNodeStore.getSensorNodeLight2(sensorNodeId);
+    }
+
+    @Override
     public void addListener(SensorNodeListener listener) {
         listenerRegistry.addListener(listener);
     }

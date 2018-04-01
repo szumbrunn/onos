@@ -36,5 +36,10 @@ public interface SensorNodeStore extends Store<SensorNodeEvent, SensorNodeStoreD
 
     float getSensorNodeBatteryLevel(SensorNodeId sensorNodeId);
 
+    double getSensorNodeTemperature(SensorNodeId sensorNodeId);
+    double getSensorNodeHumidity(SensorNodeId sensorNodeId);
+    double getSensorNodeLight1(SensorNodeId sensorNodeId);
+    double getSensorNodeLight2(SensorNodeId sensorNodeId);
+
     List<SensorNode> sinks();
 }

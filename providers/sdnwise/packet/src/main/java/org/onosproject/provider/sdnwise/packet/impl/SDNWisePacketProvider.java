@@ -507,6 +507,7 @@ public class SDNWisePacketProvider extends AbstractProvider
             SensorNodeId sensorNodeId = SensorNodeId.sensorNodeId(
                     sdnWiseReportMessage.getSource().generateMacAddress(),
                     sdnWiseReportMessage.getSource().netId());
+            // TODO  statistics
             Map<SDNWiseNodeId, Integer> neighbors = sdnWiseReportMessage.getNeighborRSSI();
             Map<SensorNodeId, Integer> sensorNeighbors = new HashMap<>();
             if ((neighbors != null) && (neighbors.size() > 0)) {
@@ -521,7 +522,9 @@ public class SDNWisePacketProvider extends AbstractProvider
                     new DefaultSensorNodeDescription(sensorNodeId.mac(), null, null, null,
                             sdnWiseReportMessage.sinkIp(), sdnWiseReportMessage.sinkPort(), null,
                             sensorNodeId.netId(), sdnWiseReportMessage.getSource().address(),
-                            sensorNeighbors, (float) sdnWiseReportMessage.getBatteryLevel());
+                            sensorNeighbors, (float) sdnWiseReportMessage.getBatteryLevel(),
+                            sdnWiseReportMessage.getTemperature(), sdnWiseReportMessage.getHumidity(),
+                            sdnWiseReportMessage.getLight1(), sdnWiseReportMessage.getLight2());
 
             DeviceId deviceId = DeviceId.deviceId(sdnWiseReportMessage.getSource().uri());
             sensorNodeProviderService.sensorNodeDetected(sensorNodeId, deviceId, sensorNodeDesciption);

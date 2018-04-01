@@ -33,15 +33,15 @@ public final class ReportPacketTest {
      * Test of toByteArray method, of class ReportPacket.
      */
     @Test
-    public void testToByteArray() {
+    public void testToByteArray01() {
         ReportPacket instance = new ReportPacket(1, new NodeAddress("0.2"),
                 new NodeAddress("0.0"), 2, 1);
-        HashMap<NodeAddress, Byte> map = new HashMap<>();
-        map.put(new NodeAddress("0.3"), (byte) 1);
-        map.put(new NodeAddress("0.4"), (byte) 2);
+        HashMap<NodeAddress, byte[]> map = new HashMap<>();
+        map.put(new NodeAddress("0.3"), new byte[]{(byte) 1, (byte) 42, (byte) 43});
+        map.put(new NodeAddress("0.4"), new byte[]{(byte) 2, (byte) 52, (byte) 53});
         instance.setNeighbors(map);
-        String expResult = "[1, 19, 0, 0, 0, 2, 2, 100, 0, 0, 2, 1, 2, 0,"
-                + " 3, 1, 0, 4, 2]";
+        String expResult = "[1, 31, 0, 0, 0, 2, 2, 100, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0,"
+                + " 3, 1, 42, 43, 0, 4, 2, 52, 53]";
         String result = Arrays.toString(instance.toByteArray());
         assertEquals(expResult, result);
     }

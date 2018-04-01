@@ -52,6 +52,18 @@ public class SimpleSensorNodeStore
     private final Map<SensorNodeId, Float> sensorNodeBatteryLevel =
             new ConcurrentHashMap<>(200000, 0.75f, 16);
 
+    private final Map<SensorNodeId, Double> sensorNodeTemperature =
+            new ConcurrentHashMap<>(200000, 0.75f, 16);
+
+    private final Map<SensorNodeId, Double> sensorNodeHumidity =
+            new ConcurrentHashMap<>(200000, 0.75f, 16);
+
+    private final Map<SensorNodeId, Double> sensorNodeLight1 =
+            new ConcurrentHashMap<>(200000, 0.75f, 16);
+
+    private final Map<SensorNodeId, Double> sensorNodeLight2 =
+            new ConcurrentHashMap<>(20000, 0.75f, 16);
+
     private final List<SensorNode> sinks = new ArrayList<>();
 
     @Activate
@@ -150,6 +162,11 @@ public class SimpleSensorNodeStore
                 this.sensorNodes.put(sensorNodeId, sensorNode);
                 this.sensorNodeNeighborhood.put(sensorNodeId, sensorNodeDesciption.neighbors());
                 this.sensorNodeBatteryLevel.put(sensorNodeId, sensorNodeDesciption.batteryLevel());
+                this.sensorNodeTemperature.put(sensorNodeId, sensorNodeDesciption.getTemperature());
+                this.sensorNodeHumidity.put(sensorNodeId, sensorNodeDesciption.getHumidity());
+                this.sensorNodeLight1.put(sensorNodeId, sensorNodeDesciption.getLight1());
+                this.sensorNodeLight2.put(sensorNodeId, sensorNodeDesciption.getLight2());
+
                 if (sinkMac != null) {
                     this.sinks.add(sensorNode);
                 }
@@ -167,6 +184,10 @@ public class SimpleSensorNodeStore
             if (sensorNode != null) {
                 this.sensorNodeNeighborhood.remove(sensorNodeId);
                 this.sensorNodeBatteryLevel.remove(sensorNodeId);
+                this.sensorNodeTemperature.remove(sensorNodeId);
+                this.sensorNodeHumidity.remove(sensorNodeId);
+                this.sensorNodeLight1.remove(sensorNodeId);
+                this.sensorNodeLight2.remove(sensorNodeId);
                 return new SensorNodeEvent(SENSOR_REMOVED, sensorNode, currentTimeMillis());
             }
         }
@@ -218,6 +239,26 @@ public class SimpleSensorNodeStore
     @Override
     public float getSensorNodeBatteryLevel(SensorNodeId sensorNodeId) {
         return this.sensorNodeBatteryLevel.get(sensorNodeId);
+    }
+
+    @Override
+    public double getSensorNodeTemperature(SensorNodeId sensorNodeId) {
+        return this.sensorNodeTemperature.get(sensorNodeId);
+    }
+
+    @Override
+    public double getSensorNodeHumidity(SensorNodeId sensorNodeId) {
+        return this.sensorNodeHumidity.get(sensorNodeId);
+    }
+
+    @Override
+    public double getSensorNodeLight1(SensorNodeId sensorNodeId) {
+        return this.sensorNodeLight1.get(sensorNodeId);
+    }
+
+    @Override
+    public double getSensorNodeLight2(SensorNodeId sensorNodeId) {
+        return this.sensorNodeLight2.get(sensorNodeId);
     }
 
     @Override

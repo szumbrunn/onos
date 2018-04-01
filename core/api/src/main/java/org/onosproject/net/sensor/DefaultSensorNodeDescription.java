@@ -28,11 +28,18 @@ public class DefaultSensorNodeDescription extends AbstractDescription
     private PortNumber sinkConnectionPort;
     private DeviceId sinkLocation;
 
+    private double temperature;
+    private double humidity;
+    private double light1;
+    private double light2;
+    // TODO statistics
+
     public DefaultSensorNodeDescription(MacAddress hwAddress, MacAddress sinkMacAddress,
                                         IpAddress sinkIpAddress, PortNumber sinkPort,
                                         IpAddress sinkConnectionIpAddress, PortNumber sinkConnectionPort,
                                         DeviceId sinkLocation, int netId, byte[] address,
-                                        Map<SensorNodeId, Integer> neighbors, Float batteryLevel) {
+                                        Map<SensorNodeId, Integer> neighbors, Float batteryLevel,
+                                        double temperature, double humidity, double light1, double light2) {
         super();
         this.macAddress = hwAddress;
         this.netId = netId;
@@ -46,6 +53,12 @@ public class DefaultSensorNodeDescription extends AbstractDescription
         this.sinkConnectionIpAddress = sinkConnectionIpAddress;
         this.sinkConnectionPort = sinkConnectionPort;
         this.sinkLocation = sinkLocation;
+
+        // TODO probably better move it to anotations
+        this.temperature = temperature;
+        this.humidity = humidity;
+        this.light1 = light1;
+        this.light2 =light2;
     }
 
     public DefaultSensorNodeDescription(MacAddress hwAddress, MacAddress sinkMacAddress,
@@ -81,6 +94,41 @@ public class DefaultSensorNodeDescription extends AbstractDescription
         this.batteryLevel = batteryLevel;
     }
 
+    @Override
+    public double getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
+    }
+
+    @Override
+    public double getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(double humidity) {
+        this.humidity = humidity;
+    }
+
+    @Override
+    public double getLight1() {
+        return light1;
+    }
+
+    public void setLight1(double light1) {
+        this.light1 = light1;
+    }
+
+    @Override
+    public double getLight2() {
+        return light2;
+    }
+
+    public void setLight2(double light2) {
+        this.light2 = light2;
+    }
 
     @Override
     public MacAddress hwAddress() {
@@ -136,4 +184,5 @@ public class DefaultSensorNodeDescription extends AbstractDescription
     public Float batteryLevel() {
         return batteryLevel;
     }
+
 }
