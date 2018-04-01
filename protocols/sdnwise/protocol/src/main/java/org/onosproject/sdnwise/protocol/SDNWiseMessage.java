@@ -7,6 +7,7 @@ import com.github.sdnwiselab.sdnwise.util.NodeAddress;
 import com.google.common.base.MoreObjects;
 import org.onlab.packet.IpAddress;
 import org.onosproject.net.PortNumber;
+import org.onosproject.net.SensorNodeNeighbor;
 import org.slf4j.Logger;
 
 import java.nio.ByteBuffer;
@@ -98,15 +99,9 @@ public class SDNWiseMessage {
                     byte rssi = entry.getValue()[0];
                     byte rxCount = entry.getValue()[1];
                     byte txCount = entry.getValue()[2];
-                    ((SDNWiseReportMessage) sdnWiseMessage).addNeighborRSSI(
+                    ((SDNWiseReportMessage) sdnWiseMessage).addNeighbor(
                             new SDNWiseNodeId(networkPacket.getNet(), nodeAddress.getArray()),
-                            (rssi & 0xFF));
-                    ((SDNWiseReportMessage) sdnWiseMessage).addNeighborRxCount(
-                            new SDNWiseNodeId(networkPacket.getNet(), nodeAddress.getArray()),
-                            (rxCount & 0xFF));
-                    ((SDNWiseReportMessage) sdnWiseMessage).addNeighborTxCount(
-                            new SDNWiseNodeId(networkPacket.getNet(), nodeAddress.getArray()),
-                            (txCount & 0xFF));
+                            new SensorNodeNeighbor(rssi & 0xFF, rxCount & 0xFF, txCount & 0xFF));
                 }
             }
         } else {

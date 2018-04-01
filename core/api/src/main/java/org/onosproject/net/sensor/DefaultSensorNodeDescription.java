@@ -2,11 +2,7 @@ package org.onosproject.net.sensor;
 
 import org.onlab.packet.IpAddress;
 import org.onlab.packet.MacAddress;
-import org.onosproject.net.AbstractDescription;
-import org.onosproject.net.DeviceId;
-import org.onosproject.net.PortNumber;
-import org.onosproject.net.SensorNodeId;
-import org.onosproject.net.SparseAnnotations;
+import org.onosproject.net.*;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -38,7 +34,7 @@ public class DefaultSensorNodeDescription extends AbstractDescription
                                         IpAddress sinkIpAddress, PortNumber sinkPort,
                                         IpAddress sinkConnectionIpAddress, PortNumber sinkConnectionPort,
                                         DeviceId sinkLocation, int netId, byte[] address,
-                                        Map<SensorNodeId, Integer> neighbors, Float batteryLevel,
+                                        Map<SensorNodeId, SensorNodeNeighbor> neighbors, Float batteryLevel,
                                         double temperature, double humidity, double light1, double light2) {
         super();
         this.macAddress = hwAddress;
@@ -65,7 +61,7 @@ public class DefaultSensorNodeDescription extends AbstractDescription
                                         IpAddress sinkIpAddress, PortNumber sinkPort,
                                         IpAddress sinkConnectionIpAddress, PortNumber sinkConnectionPort,
                                         DeviceId sinkLocation, int netId, byte[] address,
-                                        Map<SensorNodeId, Integer> neighbors,
+                                        Map<SensorNodeId, SensorNodeNeighbor> neighbors,
                                         Float batteryLevel, SparseAnnotations... annotations) {
         super(annotations);
         this.macAddress = hwAddress;
@@ -83,7 +79,7 @@ public class DefaultSensorNodeDescription extends AbstractDescription
     }
 
     public DefaultSensorNodeDescription(MacAddress hwAddress, int netId,
-                                        byte[] address, Map<SensorNodeId, Integer> neighbors,
+                                        byte[] address, Map<SensorNodeId, SensorNodeNeighbor> neighbors,
                                         Float batteryLevel, SparseAnnotations... annotations) {
         super(annotations);
         this.macAddress = hwAddress;

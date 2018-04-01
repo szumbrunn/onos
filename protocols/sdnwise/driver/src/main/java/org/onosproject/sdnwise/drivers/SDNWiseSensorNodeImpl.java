@@ -4,6 +4,7 @@ import com.github.sdnwiselab.sdnwise.packet.NetworkPacket;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
+import org.onosproject.net.SensorNodeNeighbor;
 import org.onosproject.sdnwise.controller.driver.SDNWiseAgent;
 import org.onosproject.sdnwise.controller.driver.SDNWiseNodeDriver;
 import org.onosproject.sdnwise.protocol.SDNWiseMessage;
@@ -29,14 +30,15 @@ public class SDNWiseSensorNodeImpl implements SDNWiseNodeDriver {
     private final SDNWiseNodeId id;
     private SDNWiseAgent agent;
 
-    private Map<SDNWiseNodeId, Integer> rssi;
+
+    private Map<SDNWiseNodeId, SensorNodeNeighbor> neighbors;
 
     private final AtomicInteger xidCounter = new AtomicInteger(0);
 
     public SDNWiseSensorNodeImpl(SDNWiseNodeId id, Channel channel) {
         this.id = id;
         this.channel = channel;
-        this.rssi = new HashMap<>();
+        this.neighbors = new HashMap<>();
     }
 
     @Override
@@ -205,13 +207,13 @@ public class SDNWiseSensorNodeImpl implements SDNWiseNodeDriver {
     }
 
     @Override
-    public double getRSSI(SDNWiseNodeId neighbor) {
-        return this.rssi.get(neighbor);
+    public SensorNodeNeighbor getNeighbor(SDNWiseNodeId neighborId) {
+        return this.neighbors.get(neighborId);
     }
 
     @Override
-    public void setRSSI(SDNWiseNodeId neighbor, int rssi) {
-        this.rssi.put(neighbor, rssi);
+    public void setNeighbor(SDNWiseNodeId neighborId, SensorNodeNeighbor neighbor) {
+        this.neighbors.put(neighborId, neighbor);
     }
 
     @Override

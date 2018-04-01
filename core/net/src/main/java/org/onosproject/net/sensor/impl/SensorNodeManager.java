@@ -12,6 +12,7 @@ import org.onosproject.event.EventDeliveryService;
 import org.onosproject.net.DeviceId;
 import org.onosproject.net.SensorNode;
 import org.onosproject.net.SensorNodeId;
+import org.onosproject.net.SensorNodeNeighbor;
 import org.onosproject.net.provider.AbstractProviderRegistry;
 import org.onosproject.net.provider.AbstractProviderService;
 import org.onosproject.net.sensor.SensorNodeDesciption;
@@ -151,7 +152,7 @@ public class SensorNodeManager
     }
 
     @Override
-    public Map<SensorNodeId, Integer> getSensorNodeNeighbors(SensorNodeId sensorNodeId) {
+    public Map<SensorNodeId, SensorNodeNeighbor> getSensorNodeNeighbors(SensorNodeId sensorNodeId) {
         return sensorNodeStore.getSensorNodeNeighbors(sensorNodeId);
     }
 

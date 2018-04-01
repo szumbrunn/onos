@@ -6,10 +6,7 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Deactivate;
 import org.apache.felix.scr.annotations.Service;
 import org.onlab.packet.MacAddress;
-import org.onosproject.net.DefaultSensorNode;
-import org.onosproject.net.DeviceId;
-import org.onosproject.net.SensorNode;
-import org.onosproject.net.SensorNodeId;
+import org.onosproject.net.*;
 import org.onosproject.net.provider.ProviderId;
 import org.onosproject.net.sensor.SensorNodeDesciption;
 import org.onosproject.net.sensor.SensorNodeEvent;
@@ -228,7 +225,7 @@ public class SimpleSensorNodeStore
     }
 
     @Override
-    public Map<SensorNodeId, Integer> getSensorNodeNeighbors(SensorNodeId sensorNodeId) {
+    public Map<SensorNodeId, SensorNodeNeighbor> getSensorNodeNeighbors(SensorNodeId sensorNodeId) {
         SensorNodeNeighborhood neighborhood = this.sensorNodeNeighborhood.get(sensorNodeId);
         if (neighborhood != null) {
             return neighborhood.getNeighborhood();

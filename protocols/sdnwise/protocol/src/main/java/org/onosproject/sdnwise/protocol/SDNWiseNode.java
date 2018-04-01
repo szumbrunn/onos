@@ -1,5 +1,7 @@
 package org.onosproject.sdnwise.protocol;
 
+import org.onosproject.net.SensorNodeNeighbor;
+
 import java.util.List;
 
 /**
@@ -34,9 +36,9 @@ public interface SDNWiseNode {
 
     public void setTransmissionPowerLevel(double level);
 
-    public double getRSSI(SDNWiseNodeId neighbor);
+    public SensorNodeNeighbor getNeighbor(SDNWiseNodeId neighborId);
 
-    public void setRSSI(SDNWiseNodeId neighbor, int rssi);
+    public void setNeighbor(SDNWiseNodeId neighborId, SensorNodeNeighbor neighbor);
 
     public SDNWiseNodeState getNodeState();
 

@@ -4,6 +4,7 @@ import org.onlab.packet.MacAddress;
 import org.onosproject.net.DeviceId;
 import org.onosproject.net.SensorNode;
 import org.onosproject.net.SensorNodeId;
+import org.onosproject.net.SensorNodeNeighbor;
 
 import java.util.List;
 import java.util.Map;
@@ -39,5 +40,5 @@ public interface SensorNodeService {
 
     void removeListner(SensorNodeListener listener);
 
-    Map<SensorNodeId, Integer> getSensorNodeNeighbors(SensorNodeId sensorNodeId);
+    Map<SensorNodeId, SensorNodeNeighbor> getSensorNodeNeighbors(SensorNodeId sensorNodeId);
 }

@@ -8,14 +8,7 @@ import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.ReferenceCardinality;
 import org.onlab.packet.Data;
 import org.onlab.packet.Ethernet;
-import org.onosproject.net.ConnectPoint;
-import org.onosproject.net.DefaultAnnotations;
-import org.onosproject.net.Device;
-import org.onosproject.net.DeviceId;
-import org.onosproject.net.Link;
-import org.onosproject.net.SensorNode;
-import org.onosproject.net.SensorNodeId;
-import org.onosproject.net.SparseAnnotations;
+import org.onosproject.net.*;
 import org.onosproject.net.device.DeviceEvent;
 import org.onosproject.net.device.DeviceListener;
 import org.onosproject.net.device.DeviceService;
@@ -358,17 +351,17 @@ public class SDNWisePacketProvider extends AbstractProvider
                 SDNWiseReportMessage reportMessage = (SDNWiseReportMessage) message;
 
                 LOG.info("Received REPORT message from node {}", Arrays.toString(message.getSource().address()));
-                Map<SDNWiseNodeId, Integer> rssis = reportMessage.getNeighborRSSI();
-                if ((rssis != null) && (rssis.size() > 0)) {
-                    for (Map.Entry<SDNWiseNodeId, Integer> rssiEntry : rssis.entrySet()) {
-                        SDNWiseNodeId neighborNodeId = rssiEntry.getKey();
+                Map<SDNWiseNodeId, SensorNodeNeighbor> neighbors = reportMessage.getNeighbors();
+                if ((neighbors != null) && (neighbors.size() > 0)) {
+                    for (Map.Entry<SDNWiseNodeId, SensorNodeNeighbor> neighborEntrySet : neighbors.entrySet()) {
+                        SDNWiseNodeId neighborNodeId = neighborEntrySet.getKey();
 
 //                        if (!(sensorNeighborExists(SensorNodeId.sensorNodeId(
 //                                        incomingNodeId.generateMacAddress(), incomingNodeId.netId()),
 //                                SensorNodeId.sensorNodeId(
 //                                        neighborNodeId.generateMacAddress(), neighborNodeId.netId())))) {
 //
-                            incomingNode.setRSSI(rssiEntry.getKey(), rssiEntry.getValue());
+                            incomingNode.setNeighbor(neighborEntrySet.getKey(), neighborEntrySet.getValue());
                             DeviceId neighborDeviceId = DeviceId.deviceId(neighborNodeId.uri());
 //
 //                            Long neighborCurPortNumber = sensorPortsUsed.get(neighborDeviceId.uri().toString());
@@ -399,8 +392,9 @@ public class SDNWisePacketProvider extends AbstractProvider
                                     sensorPairs.add(deviceIdPairToCheck);
                                 }
 
+                                // TODO add other annotations
                                 SparseAnnotations linkAnnotations = DefaultAnnotations.builder()
-                                        .set(neighborNodeId.toString(), rssiEntry.getValue().toString())
+                                        .set(neighborNodeId.toString(), Integer.toString(neighborEntrySet.getValue().getRssi()))
                                         .build();
                                 LinkDescription linkDescription = new DefaultLinkDescription(
                                         deviceIdPair.getConnectPoint1(), deviceIdPair.getConnectPoint2(),
@@ -466,7 +460,7 @@ public class SDNWisePacketProvider extends AbstractProvider
 
         private boolean sensorNeighborExists(SensorNodeId sensor, SensorNodeId neighbor) {
             boolean isNeighborAlready = false;
-            Map<SensorNodeId, Integer> neighborhood = sensorNodeService.getSensorNodeNeighbors(sensor);
+            Map<SensorNodeId, SensorNodeNeighbor> neighborhood = sensorNodeService.getSensorNodeNeighbors(sensor);
             if (neighborhood != null) {
                 Set<SensorNodeId> nodes = neighborhood.keySet();
                 if (nodes.contains(neighbor)) {
@@ -508,10 +502,10 @@ public class SDNWisePacketProvider extends AbstractProvider
                     sdnWiseReportMessage.getSource().generateMacAddress(),
                     sdnWiseReportMessage.getSource().netId());
             // TODO  statistics
-            Map<SDNWiseNodeId, Integer> neighbors = sdnWiseReportMessage.getNeighborRSSI();
-            Map<SensorNodeId, Integer> sensorNeighbors = new HashMap<>();
+            Map<SDNWiseNodeId, SensorNodeNeighbor> neighbors = sdnWiseReportMessage.getNeighbors();
+            Map<SensorNodeId, SensorNodeNeighbor> sensorNeighbors = new HashMap<>();
             if ((neighbors != null) && (neighbors.size() > 0)) {
-                for (Map.Entry<SDNWiseNodeId, Integer> neighbor : neighbors.entrySet()) {
+                for (Map.Entry<SDNWiseNodeId, SensorNodeNeighbor> neighbor : neighbors.entrySet()) {
                     SDNWiseNodeId id = neighbor.getKey();
                     SensorNodeId neighborSensorNodeId = SensorNodeId.sensorNodeId(
                             id.generateMacAddress(), id.netId());

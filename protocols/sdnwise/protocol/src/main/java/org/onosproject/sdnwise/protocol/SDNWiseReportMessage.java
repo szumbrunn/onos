@@ -2,6 +2,7 @@ package org.onosproject.sdnwise.protocol;
 
 import org.onlab.packet.IpAddress;
 import org.onosproject.net.PortNumber;
+import org.onosproject.net.SensorNodeNeighbor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +14,6 @@ public class SDNWiseReportMessage extends SDNWiseMessage {
     private int distance;
     private int batteryLevel;
     private int nofNeighbors;
-    private Map<SDNWiseNodeId, Integer> neighborRSSI;
     private IpAddress sinkIpAddress;
     private PortNumber sinkPortNumber;
 
@@ -24,14 +24,11 @@ public class SDNWiseReportMessage extends SDNWiseMessage {
     private double humidity;
     private double light1;
     private double light2;
-    private Map<SDNWiseNodeId, Integer> neighborRxCount;
-    private Map<SDNWiseNodeId, Integer> neighborTxCount;
+    private Map<SDNWiseNodeId, SensorNodeNeighbor> neighbors;
 
     public SDNWiseReportMessage() {
         super();
-        this.neighborRSSI = new HashMap<>();
-        this.neighborRxCount = new HashMap<>();
-        this.neighborTxCount = new HashMap<>();
+        this.neighbors = new HashMap<>();
     }
 
     public SDNWiseReportMessage(int distance, int batteryLevel, int nofNeighbors,
@@ -41,15 +38,13 @@ public class SDNWiseReportMessage extends SDNWiseMessage {
         this.distance = distance;
         this.batteryLevel = batteryLevel;
         this.nofNeighbors = nofNeighbors;
-        this.neighborRSSI = new HashMap<>();
         this.sinkIpAddress = sinkIpAddress;
         this.sinkPortNumber = sinkPortNumber;
 
         /**
          * Added by Jakob
          */
-        this.neighborRxCount = new HashMap<>();
-        this.neighborTxCount = new HashMap<>();
+        this.neighbors = new HashMap<>();
         this.temperature = temperature;
         this.humidity = humidity;
         this.light1 = light1;
@@ -58,19 +53,16 @@ public class SDNWiseReportMessage extends SDNWiseMessage {
 
     public SDNWiseReportMessage(int distance, int batteryLevel, int nofNeighbors,
                                 double temperature, double humidity, double light1, double light2,
-                                Map<SDNWiseNodeId, Integer> neighborRSSI,
-                                Map<SDNWiseNodeId, Integer> neighborRxCount, Map<SDNWiseNodeId, Integer> neighborTxCount) {
+                                Map<SDNWiseNodeId, SensorNodeNeighbor> neighbors) {
         super();
         this.distance = distance;
         this.batteryLevel = batteryLevel;
         this.nofNeighbors = nofNeighbors;
-        this.neighborRSSI = neighborRSSI;
 
         /**
          * Added by Jakob
          */
-        this.neighborRxCount = neighborRxCount;
-        this.neighborTxCount = neighborTxCount;
+        this.neighbors = neighbors;
         this.temperature = temperature;
         this.humidity = humidity;
         this.light1 = light1;
@@ -110,22 +102,6 @@ public class SDNWiseReportMessage extends SDNWiseMessage {
         this.light2 = light2;
     }
 
-    public Map<SDNWiseNodeId, Integer> getNeighborRxCount() {
-        return neighborRxCount;
-    }
-
-    public void setNeighborRxCount(Map<SDNWiseNodeId, Integer> neighborRxCount) {
-        this.neighborRxCount = neighborRxCount;
-    }
-
-    public Map<SDNWiseNodeId, Integer> getNeighborTxCount() {
-        return neighborTxCount;
-    }
-
-    public void setNeighborTxCount(Map<SDNWiseNodeId, Integer> neighborTxCount) {
-        this.neighborTxCount = neighborTxCount;
-    }
-
     public int getDistance() {
         return distance;
     }
@@ -150,25 +126,13 @@ public class SDNWiseReportMessage extends SDNWiseMessage {
         this.nofNeighbors = nofNeighbors;
     }
 
-    public Map<SDNWiseNodeId, Integer> getNeighborRSSI() {
-        return neighborRSSI;
+    public Map<SDNWiseNodeId, SensorNodeNeighbor> getNeighbors() {
+        return neighbors;
     }
 
-    public void setNeighborRSSI(Map<SDNWiseNodeId, Integer> neighborRSSI) {
-        this.neighborRSSI = neighborRSSI;
-    }
+    public void addNeighbor(SDNWiseNodeId neighborId, SensorNodeNeighbor neighbor) { this.neighbors.put(neighborId, neighbor); }
 
-    public void addNeighborRSSI(SDNWiseNodeId neighbor, int rssi) {
-        this.neighborRSSI.put(neighbor, rssi);
-    }
-
-    public void addNeighborRxCount(SDNWiseNodeId neighbor, int rxCount) { this.neighborTxCount.put(neighbor, rxCount); };
-
-    public void addNeighborTxCount(SDNWiseNodeId neighbor, int txCount) { this.neighborTxCount.put(neighbor, txCount); };
-
-    public Integer getNeighborRSSI(SDNWiseNodeId neighbor) {
-        return this.neighborRSSI.get(neighbor);
-    }
+    public SensorNodeNeighbor getNeighbor(SDNWiseNodeId neighborId) { return this.neighbors.get(neighborId);}
 
     public IpAddress sinkIp() {
         return this.sinkIpAddress;

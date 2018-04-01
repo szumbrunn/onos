@@ -4,6 +4,7 @@ import org.onlab.packet.MacAddress;
 import org.onosproject.net.DeviceId;
 import org.onosproject.net.SensorNode;
 import org.onosproject.net.SensorNodeId;
+import org.onosproject.net.SensorNodeNeighbor;
 import org.onosproject.net.provider.ProviderId;
 import org.onosproject.store.Store;
 
@@ -32,7 +33,7 @@ public interface SensorNodeStore extends Store<SensorNodeEvent, SensorNodeStoreD
 
     SensorNode getSensorNodeByAddress(int netId, byte[] address);
 
-    Map<SensorNodeId, Integer> getSensorNodeNeighbors(SensorNodeId sensorNodeId);
+    Map<SensorNodeId, SensorNodeNeighbor> getSensorNodeNeighbors(SensorNodeId sensorNodeId);
 
     float getSensorNodeBatteryLevel(SensorNodeId sensorNodeId);
 
