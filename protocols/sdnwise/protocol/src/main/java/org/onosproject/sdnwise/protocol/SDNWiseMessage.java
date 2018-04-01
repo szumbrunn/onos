@@ -91,7 +91,11 @@ public class SDNWiseMessage {
                     reportPacket.getLight1AsDouble(),
                     reportPacket.getLight2AsDouble(),
                     ipAddress, port);
-
+            log.info("Neighbors Size: {}", reportPacket.getNeigborsSize());
+            log.info("Temperature: {}", reportPacket.getTemperatureAsDouble());
+            log.info("Humidity: {}", reportPacket.getHumidityAsDouble());
+            log.info("Light1: {}", reportPacket.getLight1AsDouble());
+            log.info("Light2: {}", reportPacket.getLight2AsDouble());
             HashMap<NodeAddress, byte[]> neighborsMap = reportPacket.getNeighbors();
             if ((neighborsMap != null) && (neighborsMap.size() > 0)) {
                 for (Map.Entry<NodeAddress, byte[]> entry : neighborsMap.entrySet()) {
