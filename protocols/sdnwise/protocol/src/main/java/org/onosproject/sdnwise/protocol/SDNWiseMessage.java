@@ -10,11 +10,10 @@ import org.onosproject.net.PortNumber;
 import org.onosproject.net.SensorNodeNeighbor;
 import org.slf4j.Logger;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.github.sdnwiselab.sdnwise.packet.NetworkPacket.*;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -36,14 +35,15 @@ public class SDNWiseMessage {
     private SDNWiseNodeId nxHop;
 
     public static NetworkPacket setPayload(NetworkPacket np, byte[] payload) {
-        byte[] packet = np.toByteArray();
-        log.info("SET PAYLOAD Packet: {}", packet);
-        log.info("SET PAYLOAD length: {}", payload.length);
-        log.info("SET PAYLOAD DFLT_HDR_LEN: {}", DFLT_HDR_LEN);
-        System.arraycopy(payload, 0, packet, DFLT_HDR_LEN, payload.length);
-        log.info("1");
-        np.setArray(packet);
-        log.info("2");
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
+        try {
+            outputStream.write( np.toByteArray() );
+            outputStream.write( payload );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        np.setArray(outputStream.toByteArray());
         return np;
     }
 
