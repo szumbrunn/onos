@@ -331,13 +331,10 @@ public class SDNWiseMessage {
         networkPacket.setNet((byte) this.getId());
 //        networkPacket.setLen((byte) 10);
         networkPacket.setTtl((byte) 100);
-        log.info("AAAAAAAAAAAAAAAAAAAAAAAA {}", this.getRawDataPayload());
         networkPacket = setPayload(networkPacket, this.getRawDataPayload());
 
-        log.info("2");
         networkPacket.setNxh(new NodeAddress(getNxHop().address()));
 
-        log.info("3");
         return networkPacket;
     }
 
