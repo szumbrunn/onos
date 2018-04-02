@@ -302,31 +302,19 @@ public class SDNWiseMessage {
     public byte[] serialize() {
         byte[] buf;
 
-        log.info("11");
         if (getNetworkPackets() == null) {
-
-            log.info("12");
             buf = getNetworkPacket().toByteArray();
         } else {
-
-            log.info("13");
             buf = new byte[this.getLength()];
             List<NetworkPacket> networkPackets = getNetworkPackets();
             int offset = 0;
             for (NetworkPacket networkPacket : networkPackets) {
-
-                log.info("111");
                 byte[] arr = networkPacket.toByteArray();
-
-                log.info("112");
                 System.arraycopy(arr, 0, buf, offset, arr.length);
-
-                log.info("113");
                 offset = offset + arr.length;
             }
         }
 
-        log.info("14");
         return buf;
     }
 
