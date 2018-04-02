@@ -300,9 +300,6 @@ public class SDNWisePacketProvider extends AbstractProvider
 
             SDNWiseMessageType messageType = message.getMessageType();
 
-            LOG.info("###################### {}", messageType.getSensorPacketType().originalId());
-            LOG.info("@@@@@@@@@@@@@@@@@@@@@@ {}", messageType.getNetworkPacketType());
-            LOG.info("@@@@@@@@@@@@@@@@@@@@@@ {}", messageType.toString());
             if (messageType.equals(SDNWiseBuiltinMessageType.BEACON)) {
                 LOG.warn("Cannot handle BEACON packets");
             } else if (messageType.equals(SDNWiseBuiltinMessageType.CONFIG)) {

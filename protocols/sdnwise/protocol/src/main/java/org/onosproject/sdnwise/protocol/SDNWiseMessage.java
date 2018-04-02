@@ -41,7 +41,9 @@ public class SDNWiseMessage {
         log.info("SET PAYLOAD length: {}", payload.length);
         log.info("SET PAYLOAD DFLT_HDR_LEN: {}", DFLT_HDR_LEN);
         System.arraycopy(payload, 0, packet, DFLT_HDR_LEN, payload.length);
+        log.info("1");
         np.setArray(packet);
+        log.info("2");
         return np;
     }
 
@@ -300,19 +302,31 @@ public class SDNWiseMessage {
     public byte[] serialize() {
         byte[] buf;
 
+        log.info("11");
         if (getNetworkPackets() == null) {
+
+            log.info("12");
             buf = getNetworkPacket().toByteArray();
         } else {
+
+            log.info("13");
             buf = new byte[this.getLength()];
             List<NetworkPacket> networkPackets = getNetworkPackets();
             int offset = 0;
             for (NetworkPacket networkPacket : networkPackets) {
+
+                log.info("111");
                 byte[] arr = networkPacket.toByteArray();
+
+                log.info("112");
                 System.arraycopy(arr, 0, buf, offset, arr.length);
+
+                log.info("113");
                 offset = offset + arr.length;
             }
         }
 
+        log.info("14");
         return buf;
     }
 
@@ -331,8 +345,11 @@ public class SDNWiseMessage {
         networkPacket.setTtl((byte) 100);
         log.info("AAAAAAAAAAAAAAAAAAAAAAAA {}", this.getRawDataPayload());
         networkPacket = setPayload(networkPacket, this.getRawDataPayload());
+
+        log.info("2");
         networkPacket.setNxh(new NodeAddress(getNxHop().address()));
 
+        log.info("3");
         return networkPacket;
     }
 
