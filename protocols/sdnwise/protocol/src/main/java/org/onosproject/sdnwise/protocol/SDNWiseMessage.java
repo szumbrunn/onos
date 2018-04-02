@@ -37,6 +37,9 @@ public class SDNWiseMessage {
 
     public static NetworkPacket setPayload(NetworkPacket np, byte[] payload) {
         byte[] packet = np.toByteArray();
+        log.info("SET PAYLOAD Packet: {}", packet);
+        log.info("SET PAYLOAD length: {}", payload.length);
+        log.info("SET PAYLOAD DFLT_HDR_LEN: {}", DFLT_HDR_LEN);
         System.arraycopy(payload, 0, packet, DFLT_HDR_LEN, payload.length);
         np.setArray(packet);
         return np;
