@@ -430,7 +430,11 @@ public class SDNWisePacketProvider extends AbstractProvider
 
                 handleReportMessage(reportMessage);
             } else if (messageType.equals(SDNWiseBuiltinMessageType.REQUEST)) {
-                LOG.info("Received REQUEST message {}", Arrays.toString(message.serialize()));
+                try {
+                    LOG.info("Received REQUEST message {}", Arrays.toString(message.serialize()));
+                } catch (Exception e) {
+                    LOG.error("REQUEST Error {}", e);
+                }
                 ethernet.setSourceMACAddress(incomingNodeId.generateMacAddress());
                 ethernet.setDestinationMACAddress(message.getDestination().generateMacAddress());
                 ethernet.setPayload(new Data(message.getRawDataPayload()));
