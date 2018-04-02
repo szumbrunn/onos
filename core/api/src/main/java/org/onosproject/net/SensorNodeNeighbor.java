@@ -6,7 +6,7 @@ public class SensorNodeNeighbor {
     private int txCount;
 
     public SensorNodeNeighbor() {
-        
+
     }
 
     public SensorNodeNeighbor(int rssi, int rxCount, int txCount) {

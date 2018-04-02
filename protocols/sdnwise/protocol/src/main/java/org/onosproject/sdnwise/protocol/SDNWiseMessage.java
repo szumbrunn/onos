@@ -91,11 +91,7 @@ public class SDNWiseMessage {
                     reportPacket.getLight1AsDouble(),
                     reportPacket.getLight2AsDouble(),
                     ipAddress, port);
-            log.info("Neighbors Size: {}", reportPacket.getNeigborsSize());
-            log.info("Temperature: {}", reportPacket.getTemperatureAsDouble());
-            log.info("Humidity: {}", reportPacket.getHumidityAsDouble());
-            log.info("Light1: {}", reportPacket.getLight1AsDouble());
-            log.info("Light2: {}", reportPacket.getLight2AsDouble());
+
             HashMap<NodeAddress, byte[]> neighborsMap = reportPacket.getNeighbors();
             if ((neighborsMap != null) && (neighborsMap.size() > 0)) {
                 for (Map.Entry<NodeAddress, byte[]> entry : neighborsMap.entrySet()) {
@@ -103,6 +99,7 @@ public class SDNWiseMessage {
                     byte rssi = entry.getValue()[0];
                     byte rxCount = entry.getValue()[1];
                     byte txCount = entry.getValue()[2];
+                    log.info("RSSI: {}", rssi);
                     ((SDNWiseReportMessage) sdnWiseMessage).addNeighbor(
                             new SDNWiseNodeId(networkPacket.getNet(), nodeAddress.getArray()),
                             new SensorNodeNeighbor(rssi & 0xFF, rxCount & 0xFF, txCount & 0xFF));

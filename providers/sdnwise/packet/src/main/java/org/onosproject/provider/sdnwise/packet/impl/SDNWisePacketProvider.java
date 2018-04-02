@@ -136,6 +136,7 @@ public class SDNWisePacketProvider extends AbstractProvider
         sensorNodeProviderRegistry.unregister(this);
         packetProviderRegistry.unregister(this);
         groupManagementProviderRegistry.unregister(this);
+        linkProviderRegistry.unregister(this);
         controller.removePacketListener(packetListener);
         providerService = null;
         linkProviderService = null;
