@@ -179,7 +179,8 @@ public class SDNWiseMessage {
 //                break;
             case REQUEST:
                 sdnWiseMessage = new SDNWiseRequestMessage();
-                sdnWiseMessage.setRawDataPayload(getPayload(networkPacket));
+                log.info("###################" + Arrays.toString(networkPacket.toByteArray()));
+                // TODO Payload is missing!
                 break;
             case RESPONSE:
                 SDNWiseNodeId src = new SDNWiseNodeId(networkPacket.getNet(), networkPacket.getSrc().getArray());
