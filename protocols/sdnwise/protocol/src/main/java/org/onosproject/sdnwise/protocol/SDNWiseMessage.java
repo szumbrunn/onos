@@ -36,9 +36,12 @@ public class SDNWiseMessage {
 
     public static NetworkPacket setPayload(NetworkPacket np, byte[] payload) {
         byte[] packetAsByte = new byte[np.toByteArray().length + payload.length];
+        log.info("NP: {}", Arrays.toString(np.toByteArray()));
         System.arraycopy(np.toByteArray(), 0, packetAsByte, 0, np.toByteArray().length);
         System.arraycopy(payload, 0, packetAsByte, np.toByteArray().length, payload.length);
+        log.info("PAB: {}", Arrays.toString(np.toByteArray()));
         np.setArray(packetAsByte);
+        log.info("NBM: {}", Arrays.toString(np.toByteArray()));
         return np;
     }
 
