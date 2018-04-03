@@ -21,11 +21,7 @@ import org.onosproject.net.link.LinkService;
 import org.onosproject.net.multicast.GroupManagementProvider;
 import org.onosproject.net.multicast.GroupManagementProviderRegistry;
 import org.onosproject.net.multicast.GroupManagementProviderService;
-import org.onosproject.net.packet.InboundPacket;
-import org.onosproject.net.packet.OutboundPacket;
-import org.onosproject.net.packet.PacketProvider;
-import org.onosproject.net.packet.PacketProviderRegistry;
-import org.onosproject.net.packet.PacketProviderService;
+import org.onosproject.net.packet.*;
 import org.onosproject.net.provider.AbstractProvider;
 import org.onosproject.net.provider.ProviderId;
 import org.onosproject.net.sensor.DefaultSensorNodeDescription;
@@ -111,6 +107,7 @@ public class SDNWisePacketProvider extends AbstractProvider
 
     private Object lock = new Object();
     private Object linkLock = new Object();
+
 
     /**
      * Creates a provider with the supplier identifier.

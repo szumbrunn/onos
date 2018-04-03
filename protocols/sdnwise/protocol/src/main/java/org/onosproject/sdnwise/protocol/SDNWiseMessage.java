@@ -35,15 +35,10 @@ public class SDNWiseMessage {
     private SDNWiseNodeId nxHop;
 
     public static NetworkPacket setPayload(NetworkPacket np, byte[] payload) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
-        try {
-            outputStream.write( np.toByteArray() );
-            outputStream.write( payload );
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        np.setArray(outputStream.toByteArray());
+        byte[] packetAsByte = new byte[np.toByteArray().length + payload.length];
+        System.arraycopy(np.toByteArray(), 0, packetAsByte, 0, np.toByteArray().length);
+        System.arraycopy(payload, 0, packetAsByte, np.toByteArray().length, payload.length);
+        np.setArray(packetAsByte);
         return np;
     }
 
