@@ -74,10 +74,11 @@ public class SDNWiseChannelHandler extends IdleStateAwareChannelHandler {
         PortNumber portNumber = PortNumber.portNumber(port);
 
 //        log.info("Received the packet from node with IP {} and Port {}", ipAddress.toString(), port);
-
+        log.info("Received Packet {}", e.getMessage());
         if (e.getMessage() instanceof List) {
             List<NetworkPacket> networkPackets = (List<NetworkPacket>) e.getMessage();
             for (NetworkPacket networkPacket : networkPackets) {
+                log.info("Packet {}", Arrays.toString(networkPacket.toByteArray()));
                 this.processNetworkPacket(networkPacket, ipAddress, portNumber);
             }
         } else if (e.getMessage() instanceof NetworkPacket) {

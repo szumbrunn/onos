@@ -3,6 +3,7 @@ package org.onosproject.sdnwise.protocol;
 import com.github.sdnwiselab.sdnwise.packet.BeaconPacket;
 import com.github.sdnwiselab.sdnwise.packet.NetworkPacket;
 import com.github.sdnwiselab.sdnwise.packet.ReportPacket;
+import com.github.sdnwiselab.sdnwise.packet.RequestPacket;
 import com.github.sdnwiselab.sdnwise.util.NodeAddress;
 import com.google.common.base.MoreObjects;
 import org.onlab.packet.IpAddress;
@@ -180,6 +181,8 @@ public class SDNWiseMessage {
             case REQUEST:
                 sdnWiseMessage = new SDNWiseRequestMessage();
                 log.info("###################" + Arrays.toString(networkPacket.toByteArray()));
+                RequestPacket rp = new RequestPacket(networkPacket);
+                sdnWiseMessage.setRawDataPayload(rp.getData());
                 // TODO Payload is missing!
                 break;
             case RESPONSE:
