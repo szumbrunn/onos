@@ -180,9 +180,10 @@ public class SDNWiseMessage {
 //                break;
             case REQUEST:
                 sdnWiseMessage = new SDNWiseRequestMessage();
-                log.info("###################" + Arrays.toString(networkPacket.toByteArray()));
-                RequestPacket rp = new RequestPacket(networkPacket);
-                sdnWiseMessage.setRawDataPayload(rp.getData());
+//                log.info("###################" + Arrays.toString(networkPacket.toByteArray()));
+//                RequestPacket rp = new RequestPacket(networkPacket);
+//                sdnWiseMessage.setRawDataPayload(rp.getData());
+
                 // TODO Payload is missing!
                 break;
             case RESPONSE:
