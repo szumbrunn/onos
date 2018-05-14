@@ -37,14 +37,10 @@ public class SDNWiseMessage {
 
     public static NetworkPacket setPayload(NetworkPacket np, byte[] payload) {
         byte[] packetAsByte = new byte[np.toByteArray().length + payload.length];
-        log.info("NP: {}", Arrays.toString(np.toByteArray()));
         System.arraycopy(np.toByteArray(), 0, packetAsByte, 0, np.toByteArray().length);
         System.arraycopy(payload, 0, packetAsByte, np.toByteArray().length, payload.length);
-        log.info("PL: {}", Arrays.toString(payload));
-        log.info("PAB: {}", Arrays.toString(packetAsByte));
         packetAsByte[LEN_INDEX] = (byte)packetAsByte.length;
         np.setArray(packetAsByte);
-        log.info("NBM: {}", Arrays.toString(np.toByteArray()));
         return np;
     }
 
@@ -105,7 +101,6 @@ public class SDNWiseMessage {
                     byte rssi = entry.getValue()[0];
                     byte rxCount = entry.getValue()[1];
                     byte txCount = entry.getValue()[2];
-                    log.info("RSSI: {}", rssi);
                     ((SDNWiseReportMessage) sdnWiseMessage).addNeighbor(
                             new SDNWiseNodeId(networkPacket.getNet(), nodeAddress.getArray()),
                             new SensorNodeNeighbor(rssi & 0xFF, rxCount & 0xFF, txCount & 0xFF));
@@ -181,10 +176,6 @@ public class SDNWiseMessage {
 //                break;
             case REQUEST:
                 sdnWiseMessage = new SDNWiseRequestMessage();
-//                log.info("###################" + Arrays.toString(networkPacket.toByteArray()));
-//                RequestPacket rp = new RequestPacket(networkPacket);
-//                sdnWiseMessage.setRawDataPayload(rp.getData());
-
                 break;
             case RESPONSE:
                 SDNWiseNodeId src = new SDNWiseNodeId(networkPacket.getNet(), networkPacket.getSrc().getArray());
@@ -338,7 +329,6 @@ public class SDNWiseMessage {
         networkPacket = setPayload(networkPacket, this.getRawDataPayload());
 
         networkPacket.setNxh(new NodeAddress(getNxHop().address()));
-        log.error("******************************* {}", networkPacket.toString());
         return networkPacket;
     }
 
