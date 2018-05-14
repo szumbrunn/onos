@@ -42,6 +42,7 @@ public class SDNWiseMessage {
         System.arraycopy(payload, 0, packetAsByte, np.toByteArray().length, payload.length);
         log.info("PL: {}", Arrays.toString(payload));
         log.info("PAB: {}", Arrays.toString(packetAsByte));
+        packetAsByte[LEN_INDEX] = (byte)packetAsByte.length;
         np.setArray(packetAsByte);
         log.info("NBM: {}", Arrays.toString(np.toByteArray()));
         return np;
