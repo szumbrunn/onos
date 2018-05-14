@@ -49,6 +49,7 @@ public class SDNWiseMessage {
 
     public static byte[] getPayload(NetworkPacket np) {
         byte[] packet = np.toByteArray();
+        log.error("Packet Length: " + np.getLen());
         return Arrays.copyOfRange(packet, DFLT_HDR_LEN, np.getLen());
     }
 
@@ -184,7 +185,6 @@ public class SDNWiseMessage {
 //                RequestPacket rp = new RequestPacket(networkPacket);
 //                sdnWiseMessage.setRawDataPayload(rp.getData());
 
-                // TODO Payload is missing!
                 break;
             case RESPONSE:
                 SDNWiseNodeId src = new SDNWiseNodeId(networkPacket.getNet(), networkPacket.getSrc().getArray());
@@ -222,6 +222,7 @@ public class SDNWiseMessage {
                     networkPacket.getNxh().getArray()));
         }
 
+        log.info("Payload: " + getPayload(networkPacket));
 
         return sdnWiseMessage;
     }
