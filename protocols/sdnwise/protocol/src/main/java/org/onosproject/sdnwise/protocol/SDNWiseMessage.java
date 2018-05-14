@@ -49,7 +49,6 @@ public class SDNWiseMessage {
 
     public static byte[] getPayload(NetworkPacket np) {
         byte[] packet = np.toByteArray();
-        log.error("Packet Length: " + np.getLen());
         return Arrays.copyOfRange(packet, DFLT_HDR_LEN, np.getLen());
     }
 
@@ -222,8 +221,6 @@ public class SDNWiseMessage {
                     networkPacket.getNxh().getArray()));
         }
 
-        log.info("Payload: " + getPayload(networkPacket));
-
         return sdnWiseMessage;
     }
 
@@ -340,7 +337,7 @@ public class SDNWiseMessage {
         networkPacket = setPayload(networkPacket, this.getRawDataPayload());
 
         networkPacket.setNxh(new NodeAddress(getNxHop().address()));
-
+        log.error("******************************* {}", networkPacket.toString());
         return networkPacket;
     }
 
