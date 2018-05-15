@@ -5,6 +5,7 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Deactivate;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.ReferenceCardinality;
+import org.onlab.util.Tools;
 import org.onosproject.core.ApplicationId;
 import org.onosproject.net.DeviceId;
 import org.onosproject.net.Link;
@@ -32,10 +33,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+import java.util.concurrent.*;
 
 import static org.onosproject.net.sensorflow.SensorFlowInstruction.Type.OPEN_PATH;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -60,6 +58,10 @@ public class SDNWiseFlowRuleProvider extends AbstractProvider
 
     private FlowRuleProviderService providerService;
 
+    private ScheduledExecutorService executor
+            = Executors.newSingleThreadScheduledExecutor(Tools.groupedThreads("FlowRuleDriverProvider", "%d", log));
+    private ScheduledFuture<?> poller = null;
+
     private InternalFlowProvider listener = new InternalFlowProvider();
 
     public SDNWiseFlowRuleProvider() {
@@ -72,6 +74,14 @@ public class SDNWiseFlowRuleProvider extends AbstractProvider
         providerService = providerRegistry.register(this);
         controller.addListener(listener);
         controller.addEventListener(listener);
+
+
+        if (poller != null && !poller.isCancelled()) {
+            poller.cancel(false);
+        }
+
+        poller = executor.scheduleAtFixedRate(this::updateFlowRules, 1,
+                1, TimeUnit.SECONDS);
 
         log.info("Sarted SDN-WISE Flow Rule Provider");
     }
@@ -89,6 +99,11 @@ public class SDNWiseFlowRuleProvider extends AbstractProvider
         for (FlowRule flowRule : flowRules) {
             applyRule(flowRule);
         }
+    }
+
+    private void updateFlowRules() {
+        log.info("FlowRuleUpdate");
+        
     }
 
     private void applyRule(FlowRule flowRule) {
