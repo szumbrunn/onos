@@ -71,7 +71,7 @@ public class SDNWiseFlowRuleProvider extends AbstractProvider
 
     @Activate
     public void activate() {
-     //   providerService = providerRegistry.register(this);
+        providerService = providerRegistry.register(this);
         controller.addListener(listener);
         controller.addEventListener(listener);
 
@@ -89,7 +89,7 @@ public class SDNWiseFlowRuleProvider extends AbstractProvider
     @Deactivate
     public void deactivate() {
         providerRegistry.unregister(this);
-       // providerService = null;
+        providerService = null;
 
         log.info("Stopped SDN-WISE Flow Rule Provider");
     }

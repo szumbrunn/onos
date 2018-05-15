@@ -263,10 +263,10 @@ public class StatisticManager implements StatisticService {
                     break;
                 case RULE_ADD_REQUESTED:
                     // TODO fix statistics
-                    //statisticStore.prepareForStatistics(rule);
+                    statisticStore.prepareForStatistics(rule);
                     break;
                 case RULE_REMOVE_REQUESTED:
-                    //statisticStore.removeFromStatistics(rule);
+                    statisticStore.removeFromStatistics(rule);
                     break;
                 case RULE_REMOVED:
                     break;
