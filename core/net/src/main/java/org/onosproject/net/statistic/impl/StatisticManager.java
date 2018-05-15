@@ -262,17 +262,11 @@ public class StatisticManager implements StatisticService {
                     }
                     break;
                 case RULE_ADD_REQUESTED:
-                    log.error("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                    if(rule == null) {
-                        log.error("The rule is null");
-                    } else {
-                        log.error("ok! " + rule.deviceId().uri().toASCIIString());
-                    }
-                    statisticStore.prepareForStatistics(rule);
-                    log.error("#######################################################");
+                    // TODO fix statistics
+                    //statisticStore.prepareForStatistics(rule);
                     break;
                 case RULE_REMOVE_REQUESTED:
-                    statisticStore.removeFromStatistics(rule);
+                    //statisticStore.removeFromStatistics(rule);
                     break;
                 case RULE_REMOVED:
                     break;
