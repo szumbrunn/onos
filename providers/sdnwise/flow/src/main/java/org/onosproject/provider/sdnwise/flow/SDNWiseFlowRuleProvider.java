@@ -1,10 +1,6 @@
 package org.onosproject.provider.sdnwise.flow;
 
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Deactivate;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.ReferenceCardinality;
+import org.apache.felix.scr.annotations.*;
 import org.onlab.util.Tools;
 import org.onosproject.core.ApplicationId;
 import org.onosproject.net.DeviceId;
@@ -42,6 +38,7 @@ import static org.slf4j.LoggerFactory.getLogger;
  * Created by aca on 3/2/15.
  */
 @Component(immediate = true)
+@Service
 public class SDNWiseFlowRuleProvider extends AbstractProvider
         implements FlowRuleProvider {
 
