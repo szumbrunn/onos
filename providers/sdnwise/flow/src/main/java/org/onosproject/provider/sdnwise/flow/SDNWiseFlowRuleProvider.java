@@ -93,8 +93,6 @@ public class SDNWiseFlowRuleProvider extends AbstractProvider
 
     @Override
     public void applyFlowRule(FlowRule... flowRules) {
-
-        log.error("ŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋ YES!");
         for (FlowRule flowRule : flowRules) {
             applyRule(flowRule);
         }
@@ -107,8 +105,6 @@ public class SDNWiseFlowRuleProvider extends AbstractProvider
 
     private void applyRule(FlowRule flowRule) {
 //        List<Instruction> instructions = flowRule.treatment().instructions();
-
-        log.error("ŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋŋ YES!");
         SDNWiseNode node = controller.getNode(flowRule.deviceId());
 
 
