@@ -70,7 +70,7 @@ public final class SensorEnabledTrafficTreatment implements SensorTrafficTreatme
 
     @Override
     public List<Instruction> allInstructions() {
-        return null;
+        return allInstructions;
     }
 
     @Override
