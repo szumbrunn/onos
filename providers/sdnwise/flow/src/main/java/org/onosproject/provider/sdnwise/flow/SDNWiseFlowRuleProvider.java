@@ -55,9 +55,6 @@ public class SDNWiseFlowRuleProvider extends AbstractProvider
 
     private FlowRuleProviderService providerService;
 
-    private ScheduledExecutorService executor
-            = Executors.newSingleThreadScheduledExecutor(Tools.groupedThreads("FlowRuleDriverProvider", "%d", log));
-    private ScheduledFuture<?> poller = null;
 
     private InternalFlowProvider listener = new InternalFlowProvider();
 
@@ -71,14 +68,6 @@ public class SDNWiseFlowRuleProvider extends AbstractProvider
         providerService = providerRegistry.register(this);
         controller.addListener(listener);
         controller.addEventListener(listener);
-
-
-        if (poller != null && !poller.isCancelled()) {
-            poller.cancel(false);
-        }
-
-        poller = executor.scheduleAtFixedRate(this::updateFlowRules, 1,
-                1, TimeUnit.SECONDS);
 
         log.info("Sarted SDN-WISE Flow Rule Provider");
     }
@@ -96,11 +85,6 @@ public class SDNWiseFlowRuleProvider extends AbstractProvider
         for (FlowRule flowRule : flowRules) {
             applyRule(flowRule);
         }
-    }
-
-    private void updateFlowRules() {
-        log.info("FlowRuleUpdate");
-
     }
 
     private void applyRule(FlowRule flowRule) {
