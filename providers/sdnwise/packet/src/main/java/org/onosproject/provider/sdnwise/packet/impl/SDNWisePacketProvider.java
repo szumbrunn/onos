@@ -423,6 +423,9 @@ public class SDNWisePacketProvider extends AbstractProvider
                 }
 
                 //handleReportMessage(reportMessage);
+                ethernet.setSourceMACAddress(incomingNodeId.generateMacAddress());
+                ethernet.setDestinationMACAddress(message.getDestination().generateMacAddress());
+                ethernet.setPayload(new Data(message.getRawDataPayload()));
                 inboundPacket = new DefaultSensorInboundPacket(messageType.getSensorPacketType(), connectPoint,
                         ethernet, ByteBuffer.wrap(message.getNetworkPacket().toByteArray()),Optional.empty());
                 sdnWiseCorePacketContext = new SDNWiseCorePacketContext(System.currentTimeMillis(),
