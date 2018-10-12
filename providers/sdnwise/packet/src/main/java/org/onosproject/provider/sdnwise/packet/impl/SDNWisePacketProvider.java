@@ -422,7 +422,6 @@ public class SDNWisePacketProvider extends AbstractProvider
                     LOG.info("Node {} appears to have no neighbors", incomingNodeId);
                 }
 
-                //handleReportMessage(reportMessage);
                 ethernet.setSourceMACAddress(incomingNodeId.generateMacAddress());
                 ethernet.setDestinationMACAddress(message.getDestination().generateMacAddress());
                 ethernet.setPayload(new Data(message.getRawDataPayload()));
@@ -431,6 +430,7 @@ public class SDNWisePacketProvider extends AbstractProvider
                 sdnWiseCorePacketContext = new SDNWiseCorePacketContext(System.currentTimeMillis(),
                         inboundPacket, null, false, incomingNode);
                 providerService.processPacket(sdnWiseCorePacketContext);
+                handleReportMessage(reportMessage);
             } else if (messageType.equals(SDNWiseBuiltinMessageType.REQUEST)) {
                 try {
                     LOG.info("Received REQUEST message {}", Arrays.toString(message.serialize()));
