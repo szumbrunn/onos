@@ -422,7 +422,12 @@ public class SDNWisePacketProvider extends AbstractProvider
                     LOG.info("Node {} appears to have no neighbors", incomingNodeId);
                 }
 
-                handleReportMessage(reportMessage);
+                //handleReportMessage(reportMessage);
+                inboundPacket = new DefaultSensorInboundPacket(messageType.getSensorPacketType(), connectPoint,
+                        ethernet, ByteBuffer.wrap(message.getNetworkPacket().toByteArray()),Optional.empty());
+                sdnWiseCorePacketContext = new SDNWiseCorePacketContext(System.currentTimeMillis(),
+                        inboundPacket, null, false, incomingNode);
+                providerService.processPacket(sdnWiseCorePacketContext);
             } else if (messageType.equals(SDNWiseBuiltinMessageType.REQUEST)) {
                 try {
                     LOG.info("Received REQUEST message {}", Arrays.toString(message.serialize()));
