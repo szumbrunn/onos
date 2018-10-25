@@ -429,8 +429,8 @@ public class SDNWisePacketProvider extends AbstractProvider
                         ethernet, ByteBuffer.wrap(message.getNetworkPacket().toByteArray()),Optional.empty());
                 sdnWiseCorePacketContext = new SDNWiseCorePacketContext(System.currentTimeMillis(),
                         inboundPacket, null, false, incomingNode);
-                providerService.processPacket(sdnWiseCorePacketContext);
                 handleReportMessage(reportMessage);
+                providerService.processPacket(sdnWiseCorePacketContext);
             } else if (messageType.equals(SDNWiseBuiltinMessageType.REQUEST)) {
                 try {
                     LOG.info("Received REQUEST message {}", Arrays.toString(message.serialize()));
@@ -532,7 +532,7 @@ public class SDNWisePacketProvider extends AbstractProvider
 
             DeviceId deviceId = DeviceId.deviceId(sdnWiseReportMessage.getSource().uri());
             sensorNodeProviderService.sensorNodeDetected(sensorNodeId, deviceId, sensorNodeDesciption);
-//            LOG.info("Detected node " + sensorNodeId.toString());
+            LOG.info("Detected node " + sensorNodeId.toString());
         }
 
     }
