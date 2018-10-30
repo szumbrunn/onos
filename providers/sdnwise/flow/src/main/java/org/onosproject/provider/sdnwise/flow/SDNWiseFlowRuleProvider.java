@@ -16,14 +16,11 @@ import org.onosproject.net.sensorflow.SensorFlowInstruction;
 import org.onosproject.net.sensorflow.SensorFlowOpenPathInstruction;
 import org.onosproject.net.sensorflow.SensorTrafficSelector;
 import org.onosproject.net.sensorflow.SensorTrafficTreatment;
+import org.onosproject.net.sensorpacket.SensorPacketTypeRegistry;
 import org.onosproject.sdnwise.controller.SDNWiseController;
 import org.onosproject.sdnwise.controller.SDNWiseEventListener;
 import org.onosproject.sdnwise.controller.SDNWiseNodeListener;
-import org.onosproject.sdnwise.protocol.SDNWiseMessage;
-import org.onosproject.sdnwise.protocol.SDNWiseNode;
-import org.onosproject.sdnwise.protocol.SDNWiseNodeId;
-import org.onosproject.sdnwise.protocol.SDNWiseOpenPathMessage;
-import org.onosproject.sdnwise.protocol.SDNWiseResponseMessage;
+import org.onosproject.sdnwise.protocol.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -158,6 +155,17 @@ public class SDNWiseFlowRuleProvider extends AbstractProvider
                     sdnWiseOpenPathMessage.setSource(
                             new SDNWiseNodeId(dstAssociatedSink.netId(), dstAssociatedSink.nodeAddress().getAddr()));
                     sdnWiseOpenPathMessage.setNxHop(SDNWiseNodeId.fromMacAddress(dstAssociatedSink.mac()));
+                    sdnWiseOpenPathMessage.setMessageType(new SDNWiseMessageType() {
+                        @Override
+                        public int getNetworkPacketType() {
+                            return 6;
+                        }
+
+                        @Override
+                        public SensorPacketTypeRegistry.SensorPacketType getSensorPacketType() {
+                            return null;
+                        }
+                    });
 
 //                            SDNWiseNode node = controller.getNode(flowRule.deviceId());
 
