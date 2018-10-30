@@ -158,7 +158,7 @@ public class SDNWiseFlowRuleProvider extends AbstractProvider
                     sdnWiseOpenPathMessage.setMessageType(new SDNWiseMessageType() {
                         @Override
                         public int getNetworkPacketType() {
-                            return 6;
+                            return 11;
                         }
 
                         @Override
