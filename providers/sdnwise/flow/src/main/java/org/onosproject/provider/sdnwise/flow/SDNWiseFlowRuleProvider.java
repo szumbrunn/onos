@@ -155,17 +155,6 @@ public class SDNWiseFlowRuleProvider extends AbstractProvider
                     sdnWiseOpenPathMessage.setSource(
                             new SDNWiseNodeId(dstAssociatedSink.netId(), dstAssociatedSink.nodeAddress().getAddr()));
                     sdnWiseOpenPathMessage.setNxHop(SDNWiseNodeId.fromMacAddress(dstAssociatedSink.mac()));
-                    sdnWiseOpenPathMessage.setMessageType(new SDNWiseMessageType() {
-                        @Override
-                        public int getNetworkPacketType() {
-                            return 11;
-                        }
-
-                        @Override
-                        public SensorPacketTypeRegistry.SensorPacketType getSensorPacketType() {
-                            return null;
-                        }
-                    });
 
 //                            SDNWiseNode node = controller.getNode(flowRule.deviceId());
 
