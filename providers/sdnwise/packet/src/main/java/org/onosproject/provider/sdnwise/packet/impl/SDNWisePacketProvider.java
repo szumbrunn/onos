@@ -1,11 +1,7 @@
 package org.onosproject.provider.sdnwise.packet.impl;
 
 import com.google.common.collect.Lists;
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Deactivate;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.ReferenceCardinality;
+import org.apache.felix.scr.annotations.*;
 import org.onlab.packet.Data;
 import org.onlab.packet.Ethernet;
 import org.onosproject.net.*;
@@ -63,6 +59,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by aca on 2/26/15.
  */
 @Component(immediate = true)
+@Service
 public class SDNWisePacketProvider extends AbstractProvider
         implements PacketProvider, LinkProvider, SensorNodeProvider, GroupManagementProvider {
     private static final Logger LOG = LoggerFactory.getLogger(SDNWisePacketProvider.class);
@@ -144,6 +141,7 @@ public class SDNWisePacketProvider extends AbstractProvider
 
     @Override
     public void emit(OutboundPacket packet) {
+        LOG.info("Emitting packet {}", packet.data());
         DeviceId deviceId = packet.sendThrough();
 //        SDNWiseNodeId sdnWiseNodeId = SDNWiseNodeId.dpid(deviceId.uri());
 //        LOG.info("Emitting to device with id {}", deviceId.uri());
@@ -240,6 +238,8 @@ public class SDNWisePacketProvider extends AbstractProvider
             LOG.info("Do not have the node {}", deviceId);
         }
         //TODO: FIXME
+        LOG.info("Reached end of method");
+        LOG.info("message {}", message);
 //        node = controller.getNode(DeviceId.deviceId("sdnwise:00:00:00:01:00:02"));
         node.sendMsg(message);
     }
