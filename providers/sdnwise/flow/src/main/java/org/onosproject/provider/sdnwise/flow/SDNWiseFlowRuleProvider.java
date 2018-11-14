@@ -103,14 +103,18 @@ public class SDNWiseFlowRuleProvider extends AbstractProvider
         SensorTrafficTreatment trafficTreatment = (SensorTrafficTreatment) flowRule.treatment();
 
         if (trafficTreatment != null) {
-            SensorFlowInstruction sensorFlowInstruction = trafficTreatment.sensorFlowInstructions().get(0);
-            if (sensorFlowInstruction.getSensorFlowInstructionType().equals(OPEN_PATH)) {
+            List<SensorFlowInstruction> sensorFlowInstructions = trafficTreatment.sensorFlowInstructions();
+            log.info("Instructions: {}", sensorFlowInstructions.size());
+            for(SensorFlowInstruction instr : sensorFlowInstructions) {
+                log.info("Instruction: {}", instr.getSensorFlowInstructionType());
+            }
+            if (sensorFlowInstructions.size()==1) {
                 isOpenPath = true;
 
                 SDNWiseOpenPathMessage sdnWiseOpenPathMessage =
                         new SDNWiseOpenPathMessage(node);
                 SensorFlowOpenPathInstruction sensorFlowOpenPathInstruction =
-                        (SensorFlowOpenPathInstruction) sensorFlowInstruction;
+                        (SensorFlowOpenPathInstruction) sensorFlowInstructions.get(0);
 
 
 
@@ -159,14 +163,14 @@ public class SDNWiseFlowRuleProvider extends AbstractProvider
 //                            node = controller.getNode(DeviceId.deviceId("sdnwise:00:00:00:01:00:02"));
                     node.sendMsg(sdnWiseOpenPathMessage);
                 }
-            } else if (sensorFlowInstruction.getSensorFlowInstructionType().equals(CONFIG)) {
+            } else if (sensorFlowInstructions.size()>1) {
                 // Send attacker block message
                 isOpenPath = true;
 
                 SDNWiseOpenPathMessage sdnWiseOpenPathMessage =
                         new SDNWiseOpenPathMessage(node);
                 SensorFlowOpenPathInstruction sensorFlowOpenPathInstruction =
-                        (SensorFlowOpenPathInstruction) sensorFlowInstruction;
+                        (SensorFlowOpenPathInstruction) sensorFlowInstructions.get(1);
 
                 Path path = sensorFlowOpenPathInstruction.getPath();
                 List<Link> links = path.links();
