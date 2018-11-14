@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.concurrent.*;
 
 import static org.onosproject.net.sensorflow.SensorFlowInstruction.Type.OPEN_PATH;
+import static org.onosproject.sdnwise.protocol.SDNWiseBuiltinMessageType.CONFIG;
 import static org.slf4j.LoggerFactory.getLogger;
 
 /**
@@ -105,12 +106,7 @@ public class SDNWiseFlowRuleProvider extends AbstractProvider
             SensorFlowInstruction sensorFlowInstruction = trafficTreatment.sensorFlowInstructions().get(0);
             if (sensorFlowInstruction.getSensorFlowInstructionType().equals(OPEN_PATH)) {
                 isOpenPath = true;
-//                if (node == null) {
-//                    LOG.info("Node {} is not connected!!!", flowRule.deviceId().uri());
-//                } else {
-//                    LOG.info("Preparing OPEN_PATH for node {}", node.getId().uri());
-//                }
-//                        SensorNode dstNode = sensorNodeService.getSensorNode(flowRule.deviceId());
+
                 SDNWiseOpenPathMessage sdnWiseOpenPathMessage =
                         new SDNWiseOpenPathMessage(node);
                 SensorFlowOpenPathInstruction sensorFlowOpenPathInstruction =
@@ -159,6 +155,62 @@ public class SDNWiseFlowRuleProvider extends AbstractProvider
 //                            SDNWiseNode node = controller.getNode(flowRule.deviceId());
 
                     log.info("Sending message {} to node {}", sdnWiseOpenPathMessage.toString(), node.getID());
+                    //TODO: FIXME
+//                            node = controller.getNode(DeviceId.deviceId("sdnwise:00:00:00:01:00:02"));
+                    node.sendMsg(sdnWiseOpenPathMessage);
+                }
+            } else if (sensorFlowInstruction.getSensorFlowInstructionType().equals(CONFIG)) {
+                // Send attacker block message
+                isOpenPath = true;
+
+                SDNWiseOpenPathMessage sdnWiseOpenPathMessage =
+                        new SDNWiseOpenPathMessage(node);
+                SensorFlowOpenPathInstruction sensorFlowOpenPathInstruction =
+                        (SensorFlowOpenPathInstruction) sensorFlowInstruction;
+
+                Path path = sensorFlowOpenPathInstruction.getPath();
+                List<Link> links = path.links();
+                byte[] pathArray = new byte[2 * (links.size() + 1)];
+                int k = 0;
+                if ((links != null) && (links.size() > 0)) {
+                    for (Link link : links) {
+                        if (k == 0) {
+                            DeviceId srcDeviceId = link.src().deviceId();
+                            SensorNode sensorNode = sensorNodeService.getSensorNode(srcDeviceId);
+                            pathArray[k++] = sensorNode.addr()[0];
+                            pathArray[k++] = sensorNode.addr()[1];
+                        }
+                        DeviceId dstDeviceId = link.dst().deviceId();
+//                        LOG.info("Adding device {} to path", dstDeviceId);
+                        SensorNode sensorNode = sensorNodeService.getSensorNode(dstDeviceId);
+                        if (sensorNode == null) {
+                            log.warn("Got a non-SDNWISE device in OPEN PATH");
+                            Iterator<Link> pathIterator = path.links().iterator();
+                            while (pathIterator.hasNext()) {
+                                Link myLink = pathIterator.next();
+                                log.warn("Have link {}", myLink);
+                            }
+                        }
+                        pathArray[k++] = sensorNode.addr()[0];
+                        pathArray[k++] = sensorNode.addr()[1];
+//                                SDNWiseNodeId dstNodeId = SDNWiseNodeId.fromUri(dstDeviceId.uri());
+//                                pathArray[k++] = dstNodeId.address()[0];
+//                                pathArray[k++] = dstNodeId.address()[1];
+                    }
+                    SensorTrafficSelector openPathTrafficSelector = (SensorTrafficSelector) flowRule.selector();
+                    if (openPathTrafficSelector != null) {
+                        sdnWiseOpenPathMessage.setTrafficSelection(openPathTrafficSelector);
+                    }
+                    sdnWiseOpenPathMessage.setPath(pathArray);
+                    sdnWiseOpenPathMessage.setSource(
+                            new SDNWiseNodeId(dstAssociatedSink.netId(), dstAssociatedSink.nodeAddress().getAddr()));
+                    sdnWiseOpenPathMessage.setNxHop(SDNWiseNodeId.fromMacAddress(dstAssociatedSink.mac()));
+                    log.info("Change config message type {}", sdnWiseOpenPathMessage.toString(), node.getID());
+                    sdnWiseOpenPathMessage.setMessageType(CONFIG);
+
+//                            SDNWiseNode node = controller.getNode(flowRule.deviceId());
+
+                    log.info("Sending config message {} to node {}", sdnWiseOpenPathMessage.toString(), node.getID());
                     //TODO: FIXME
 //                            node = controller.getNode(DeviceId.deviceId("sdnwise:00:00:00:01:00:02"));
                     node.sendMsg(sdnWiseOpenPathMessage);
