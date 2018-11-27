@@ -352,7 +352,8 @@ public class SDNWisePacketProvider extends AbstractProvider
                 HashSet<ConnectPoint> currentNeighbours = new HashSet<>();
 
                 for(DeviceIdPair pair : sensorPairs) {
-                    if(pair.getConnectPoint1().equals(connectPoint)) {
+                    LOG.info("pair {} {}", pair.getConnectPoint1().deviceId(), pair.getConnectPoint2().deviceId());
+                    if(pair.getConnectPoint1().deviceId().equals(connectPoint.deviceId())) {
                         // found src = this, dst = any
                         currentNeighbours.add(pair.getConnectPoint2());
                         LOG.info("found pair {}, {}", pair.getConnectPoint1().deviceId(), pair.getConnectPoint2().deviceId());
@@ -416,6 +417,7 @@ public class SDNWisePacketProvider extends AbstractProvider
                 LOG.info("Cleaning up non-existing links...");
 
                 for(ConnectPoint connPoint: currentNeighbours) {
+                    LOG.info("Removing non-existing link {}", connPoint.deviceId());
                     SparseAnnotations linkAnnotations = DefaultAnnotations.builder()
                             .set(connPoint.deviceId().toString(), "")
                             .build();
@@ -423,6 +425,17 @@ public class SDNWisePacketProvider extends AbstractProvider
                             connectPoint, connPoint,
                             Link.Type.DIRECT, linkAnnotations);
                     linkProviderService.linkVanished(linkDescription);
+                    DeviceIdPair deviceIdPairToCheck = new DeviceIdPair(connectPoint.deviceId(), connPoint.deviceId());
+                    DeviceIdPair deviceIdPair = null;
+                    for (DeviceIdPair pair : sensorPairs) {
+                        if (pair.equals(deviceIdPairToCheck)) {
+                            deviceIdPair = pair;
+                            break;
+                        }
+                    }
+                    if(deviceIdPair!=null) {
+                        sensorPairs.remove(deviceIdPair);
+                    }
                     LOG.info("removed link {} {}", connectPoint.deviceId(), connPoint.deviceId());
                 }
 

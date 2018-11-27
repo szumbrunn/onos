@@ -163,6 +163,7 @@ public class SDNWiseFlowRuleProvider extends AbstractProvider
             }
         }
 
+
 //        for (Instruction instruction : instructions) {
 //            if (instruction.type() != null) {
 //                switch (instruction.type()) {
