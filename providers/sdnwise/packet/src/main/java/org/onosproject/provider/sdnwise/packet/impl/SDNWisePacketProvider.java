@@ -349,35 +349,33 @@ public class SDNWisePacketProvider extends AbstractProvider
                 SDNWiseReportMessage reportMessage = (SDNWiseReportMessage) message;
 
                 LOG.info("Received REPORT message from node {}", Arrays.toString(message.getSource().address()));
+                HashSet<ConnectPoint> currentNeighbours = new HashSet<>();
+
+                for(DeviceIdPair pair : sensorPairs) {
+                    if(pair.getConnectPoint1().equals(connectPoint)) {
+                        // found src = this, dst = any
+                        currentNeighbours.add(pair.getConnectPoint2());
+                        LOG.info("found pair {}, {}", pair.getConnectPoint1().deviceId(), pair.getConnectPoint2().deviceId());
+                    }
+                }
+
+
                 Map<SDNWiseNodeId, SensorNodeNeighbor> neighbors = reportMessage.getNeighbors();
                 if ((neighbors != null) && (neighbors.size() > 0)) {
                     for (Map.Entry<SDNWiseNodeId, SensorNodeNeighbor> neighborEntrySet : neighbors.entrySet()) {
                         SDNWiseNodeId neighborNodeId = neighborEntrySet.getKey();
 
-//                        if (!(sensorNeighborExists(SensorNodeId.sensorNodeId(
-//                                        incomingNodeId.generateMacAddress(), incomingNodeId.netId()),
-//                                SensorNodeId.sensorNodeId(
-//                                        neighborNodeId.generateMacAddress(), neighborNodeId.netId())))) {
-//
                             incomingNode.setNeighbor(neighborEntrySet.getKey(), neighborEntrySet.getValue());
                             DeviceId neighborDeviceId = DeviceId.deviceId(neighborNodeId.uri());
-//
-//                            Long neighborCurPortNumber = sensorPortsUsed.get(neighborDeviceId.uri().toString());
-//                            long neighborPortNumber = 0;
-//                            if (neighborCurPortNumber != null) {
-//                                neighborPortNumber = neighborCurPortNumber.longValue();
-//                            }
-//                            neighborPortNumber++;
-//                            ConnectPoint neighborConnectPoint = new ConnectPoint(neighborDeviceId,
-//                                    PortNumber.portNumber(neighborPortNumber));
-//
-//                            sensorPortsUsed.put(neighborDeviceId.uri().toString(), neighborPortNumber);
 
 //                            LOG.info("About to get into the critical section");
                             synchronized (lock) {
                                 DeviceIdPair deviceIdPairToCheck =
                                         new DeviceIdPair(connectPoint.deviceId(), neighborDeviceId);
                                 DeviceIdPair deviceIdPair = null;
+
+                                currentNeighbours.remove(neighborDeviceId); // remove deviceId
+
                                 for (DeviceIdPair pair : sensorPairs) {
                                     if (pair.equals(deviceIdPairToCheck)) {
                                         deviceIdPair = pair;
@@ -406,13 +404,6 @@ public class SDNWisePacketProvider extends AbstractProvider
                                     linkDescriptions.put(deviceIdPair.getConnectPoint1().deviceId(), linkDescription);
                                 }
 
-//                                linkAnnotations = DefaultAnnotations.builder()
-//                                        .set(incomingNodeId.toString(), rssiEntry.getValue().toString())
-//                                        .build();
-//                                linkDescription = new DefaultLinkDescription(
-//                                        deviceIdPair.getConnectPoint2(), deviceIdPair.getConnectPoint1(),
-//                                        Link.Type.DIRECT, linkAnnotations);
-//                                linkProviderService.linkDetected(linkDescription);
                             }
 //                        } else {
 //                            LOG.info("Node {} is neighbor of {} already", neighborNodeId, incomingNodeId);
@@ -421,6 +412,21 @@ public class SDNWisePacketProvider extends AbstractProvider
                 } else {
                     LOG.info("Node {} appears to have no neighbors", incomingNodeId);
                 }
+
+                LOG.info("Cleaning up non-existing links...");
+
+                for(ConnectPoint connPoint: currentNeighbours) {
+                    SparseAnnotations linkAnnotations = DefaultAnnotations.builder()
+                            .set(connPoint.deviceId().toString(), "")
+                            .build();
+                    LinkDescription linkDescription = new DefaultLinkDescription(
+                            connectPoint, connPoint,
+                            Link.Type.DIRECT, linkAnnotations);
+                    linkProviderService.linkVanished(linkDescription);
+                    LOG.info("removed link {} {}", connectPoint.deviceId(), connPoint.deviceId());
+                }
+
+
 
                 ethernet.setSourceMACAddress(incomingNodeId.generateMacAddress());
                 ethernet.setDestinationMACAddress(message.getDestination().generateMacAddress());
