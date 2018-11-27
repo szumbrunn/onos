@@ -425,8 +425,9 @@ public class SDNWisePacketProvider extends AbstractProvider
 
                     LinkDescription linkDescription = null;
                     for(LinkDescription ld : linkDescriptions1) {
-                        if(ld.src().deviceId().equals(connectPoint) && ld.dst().deviceId().equals(connPoint.deviceId())) {
+                        if(ld.src().deviceId().equals(connectPoint.deviceId()) && ld.dst().deviceId().equals(connPoint.deviceId())) {
                             linkDescription = ld;
+                            LOG.info("link found");
                             break;
                         }
                     }
