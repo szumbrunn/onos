@@ -434,6 +434,7 @@ public class SDNWisePacketProvider extends AbstractProvider
                     if(linkDescription!=null) {
                         linkDescriptions1.remove(linkDescription);
                         linkProviderService.linkVanished(linkDescription);
+                        linkDescriptions.remove(linkDescription);
                         LOG.info("removed link {} {}", connectPoint.deviceId(), connPoint.deviceId());
                     }
                     DeviceIdPair deviceIdPairToCheck = new DeviceIdPair(connectPoint.deviceId(), connPoint.deviceId());
