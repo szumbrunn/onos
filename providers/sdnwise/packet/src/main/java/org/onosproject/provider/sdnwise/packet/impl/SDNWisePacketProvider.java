@@ -351,7 +351,7 @@ public class SDNWisePacketProvider extends AbstractProvider
                 SDNWiseReportMessage reportMessage = (SDNWiseReportMessage) message;
 
                 LOG.info("Received REPORT message from node {}", Arrays.toString(message.getSource().address()));
-                HashSet<ConnectPoint> currentNeighbours = new HashSet<>();
+               /* HashSet<ConnectPoint> currentNeighbours = new HashSet<>();
 
                 for(DeviceIdPair pair : sensorPairs) {
                     LOG.info("pair {} {}", pair.getConnectPoint1().deviceId(), pair.getConnectPoint2().deviceId());
@@ -360,7 +360,7 @@ public class SDNWisePacketProvider extends AbstractProvider
                         currentNeighbours.add(pair.getConnectPoint2());
                         LOG.info("found pair {}, {}", pair.getConnectPoint1().deviceId(), pair.getConnectPoint2().deviceId());
                     }
-                }
+                }*/
 
 
                 Map<SDNWiseNodeId, SensorNodeNeighbor> neighbors = reportMessage.getNeighbors();
@@ -377,7 +377,7 @@ public class SDNWisePacketProvider extends AbstractProvider
                                         new DeviceIdPair(connectPoint.deviceId(), neighborDeviceId);
                                 DeviceIdPair deviceIdPair = null;
 
-                                currentNeighbours.remove(neighborDeviceId); // remove deviceId
+                              //  currentNeighbours.remove(neighborDeviceId); // remove deviceId
 
                                 for (DeviceIdPair pair : sensorPairs) {
                                     if (pair.equals(deviceIdPairToCheck)) {
@@ -402,7 +402,7 @@ public class SDNWisePacketProvider extends AbstractProvider
                                 if (deviceService.getDevice(incomingDeviceId) != null) {
 //                                    LOG.info("Device {} is there; creating link now...");
                                     linkProviderService.linkDetected(linkDescription);
-                                    linkDescriptions1.add(linkDescription);
+                                    //linkDescriptions1.add(linkDescription);
                                 } else {
 //                                    LOG.info("Device {} is not there; storing and waiting...");
                                     linkDescriptions.put(deviceIdPair.getConnectPoint1().deviceId(), linkDescription);
@@ -418,7 +418,7 @@ public class SDNWisePacketProvider extends AbstractProvider
                     LOG.info("Node {} appears to have no neighbors", incomingNodeId);
                 }
 
-                LOG.info("Cleaning up non-existing links...");
+              /*  LOG.info("Cleaning up non-existing links...");
 
                 for(ConnectPoint connPoint: currentNeighbours) {
                     LOG.info("Removing non-existing link {}", connPoint.deviceId());
@@ -449,7 +449,7 @@ public class SDNWisePacketProvider extends AbstractProvider
                         sensorPairs.remove(deviceIdPair);
                     }
 
-                }
+                }*/
 
 
 
