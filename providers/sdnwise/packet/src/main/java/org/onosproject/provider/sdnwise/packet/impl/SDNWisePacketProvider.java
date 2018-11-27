@@ -100,6 +100,8 @@ public class SDNWisePacketProvider extends AbstractProvider
     private Map<String, Long> sensorPortsUsed = new ConcurrentHashMap<>();
     private List<DeviceIdPair> sensorPairs = Lists.newCopyOnWriteArrayList();
 
+    private List<LinkDescription> linkDescriptions1 = Lists.newCopyOnWriteArrayList();
+
     private Map<DeviceId, LinkDescription> linkDescriptions = new ConcurrentHashMap<>();
 
     private Object lock = new Object();
@@ -400,10 +402,12 @@ public class SDNWisePacketProvider extends AbstractProvider
                                 if (deviceService.getDevice(incomingDeviceId) != null) {
 //                                    LOG.info("Device {} is there; creating link now...");
                                     linkProviderService.linkDetected(linkDescription);
+                                    linkDescriptions1.add(linkDescription);
                                 } else {
 //                                    LOG.info("Device {} is not there; storing and waiting...");
                                     linkDescriptions.put(deviceIdPair.getConnectPoint1().deviceId(), linkDescription);
                                 }
+
 
                             }
 //                        } else {
@@ -418,13 +422,19 @@ public class SDNWisePacketProvider extends AbstractProvider
 
                 for(ConnectPoint connPoint: currentNeighbours) {
                     LOG.info("Removing non-existing link {}", connPoint.deviceId());
-                    SparseAnnotations linkAnnotations = DefaultAnnotations.builder()
-                            .set(connPoint.deviceId().toString(), "")
-                            .build();
-                    LinkDescription linkDescription = new DefaultLinkDescription(
-                            connectPoint, connPoint,
-                            Link.Type.DIRECT, linkAnnotations);
-                    linkProviderService.linkVanished(linkDescription);
+
+                    LinkDescription linkDescription = null;
+                    for(LinkDescription ld : linkDescriptions1) {
+                        if(ld.src().deviceId().equals(connectPoint) && ld.dst().deviceId().equals(connPoint.deviceId())) {
+                            linkDescription = ld;
+                            break;
+                        }
+                    }
+                    if(linkDescription!=null) {
+                        linkDescriptions1.remove(linkDescription);
+                        linkProviderService.linkVanished(linkDescription);
+                        LOG.info("removed link {} {}", connectPoint.deviceId(), connPoint.deviceId());
+                    }
                     DeviceIdPair deviceIdPairToCheck = new DeviceIdPair(connectPoint.deviceId(), connPoint.deviceId());
                     DeviceIdPair deviceIdPair = null;
                     for (DeviceIdPair pair : sensorPairs) {
@@ -436,7 +446,7 @@ public class SDNWisePacketProvider extends AbstractProvider
                     if(deviceIdPair!=null) {
                         sensorPairs.remove(deviceIdPair);
                     }
-                    LOG.info("removed link {} {}", connectPoint.deviceId(), connPoint.deviceId());
+
                 }
 
 
